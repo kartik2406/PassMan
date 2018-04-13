@@ -15,12 +15,16 @@ export class AddPasswordModalComponent implements OnInit {
   }
   show(){
     var modal = document.getElementById('add-password-modal');
+    var body = document.querySelector('body');
     //console.log(modal);
     modal.style.display = 'block';
+    body.style.overflow = 'hidden';
   }
   close(){
     var modal = document.getElementById('add-password-modal');
+    var body = document.querySelector('body');
     //console.log(modal);
     modal.style.display = 'none';
+    body.style.overflow = 'scroll';
   }
 }
