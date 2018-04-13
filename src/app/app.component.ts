@@ -36,4 +36,8 @@ export class AppComponent implements OnInit {
       this.cd.detectChanges();
     });
   }
+  copyPassword(event: Event){
+    console.log('Copying')
+    document.execCommand('Copy',false, 'This is the password');
+  }
 }

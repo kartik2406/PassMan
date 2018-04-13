@@ -15,9 +15,14 @@
 <div class="container">
   <div *ngFor="let credential of credentials" class="card">
     <div class="card-header">
+      <div class="copy-password" (click)="copyPassword($event)">
+        <i class="fa fa-clone"></i>
+      </div>
+
       <div class="title">
         {{credential.service}}
       </div>
+
       <div class="card-close">
         <i class="fa fa-trash-o fa-lg"></i>
       </div>
@@ -41,7 +46,7 @@
     </div>
   </div>
 </div>
-<button class="fab-icon fab-icon-fixed mobile-only" (click)="openAddModal()"> 
-      <i class="fa fa-pencil-square fa-lg"></i>
+<button class="fab-icon fab-icon-fixed mobile-only" (click)="openAddModal()">
+  <i class="fa fa-pencil-square fa-lg"></i>
 </button>
 <app-add-password-modal></app-add-password-modal>
