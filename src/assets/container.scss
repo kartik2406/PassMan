@@ -1,0 +1,37 @@
+/* Container that takes 70% of the width */
+
+body {
+  margin: 0 0 0 0;
+  background-color: var(--light-theme-background-color);
+  color: var(--light-theme-text-color);
+}
+
+.container {
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: calc(var(--header-size) + 50px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  grid-gap: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    margin-left: 5%;
+    margin-right: 5%;
+    grid-template-columns: 1fr;
+  }
+}
+
+/*helpers*/
+
+/* Float helpers */
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
