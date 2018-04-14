@@ -120,7 +120,7 @@ var AddPasswordModalComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"header header-fixed\">\n\n  <div class=\"\">\n    PassMan\n  </div>\n  <div class=\"\">\n    <button class=\"btn btn-accent change-icon\" style=\"width:85px\" (click)=\"openAddModal()\">\n      New\n      <i class=\"fa fa-pencil-square-o\"></i>\n      <i class=\"fa fa-pencil-square\"></i>\n    </button>\n  </div>\n\n</nav>\n<div class=\"container\">\n  <div *ngFor=\"let credential of credentials\" class=\"card\">\n    <div class=\"card-header\">\n      <div class=\"copy-password\" (click)=\"copyPassword($event)\">\n        <i class=\"fa fa-clone\"></i>\n      </div>\n\n      <div class=\"title\">\n        {{credential.service}}\n      </div>\n\n      <div class=\"card-close\">\n        <i class=\"fa fa-trash-o fa-lg\"></i>\n      </div>\n    </div>\n    <div class=\"content\">\n      <div>\n        <span class=\"pull-left\">\n          Username\n        </span>\n        <span class=\"pull-right\">\n          {{credential.username}}\n        </span>\n      </div>\n    </div>\n    <div class=\"actions\">\n      <button class=\"btn btn-primary change-icon\" (click)=\"revealPassword(credential.password)\">\n        Reveal Password\n        <i class=\"fa fa-lock\"></i>\n        <i class=\"fa fa-unlock\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n<button class=\"fab-icon fab-icon-fixed mobile-only\" (click)=\"openAddModal()\">\n  <i class=\"fa fa-pencil-square fa-lg\"></i>\n</button>\n<app-add-password-modal (save)=\"savePassword($event)\"></app-add-password-modal>\n"
+module.exports = "<nav class=\"header header-fixed\">\n\n  <div class=\"\">\n    PassMan\n  </div>\n  <div class=\"\">\n    <button class=\"btn btn-accent change-icon\" style=\"width:85px\" (click)=\"openAddModal()\">\n      New\n      <i class=\"fa fa-pencil-square-o\"></i>\n      <i class=\"fa fa-pencil-square\"></i>\n    </button>\n  </div>\n\n</nav>\n<div class=\"container\">\n  <div *ngFor=\"let credential of credentials\" class=\"card\">\n    <div class=\"card-header\">\n      <div class=\"copy-password\" (click)=\"copyPassword($event)\">\n        <i class=\"fa fa-clone\"></i>\n      </div>\n\n      <div class=\"title\">\n        {{credential.service}}\n      </div>\n\n      <div class=\"card-close\" (click)=\"delete(credential)\">\n        <i class=\"fa fa-trash-o fa-lg\"></i>\n      </div>\n    </div>\n    <div class=\"content\">\n      <div>\n        <span class=\"pull-left\">\n          Username\n        </span>\n        <span class=\"pull-right\">\n          {{credential.username}}\n        </span>\n      </div>\n      <div class=\"card-content-plaintext-password clearfix\" [class.slide-down]=\"credential.plaintextPassword\">\n        {{credential.plaintextPassword}}\n      </div>\n    </div>\n    <div class=\"actions\">\n      <button class=\"btn btn-primary change-icon\" (click)=\"revealPassword(credential)\" [disabled]=\"credential.plaintextPassword\">\n        Reveal Password\n        <i class=\"fa fa-lock\"></i>\n        <i class=\"fa fa-unlock\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n<button class=\"fab-icon fab-icon-fixed mobile-only\" (click)=\"openAddModal()\">\n  <i class=\"fa fa-pencil-square fa-lg\"></i>\n</button>\n<app-add-password-modal (save)=\"savePassword($event)\"></app-add-password-modal>\n"
 
 /***/ }),
 
@@ -151,6 +151,8 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_indexed_db_service__ = __webpack_require__("../../../../../src/app/services/indexed-db.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__add_password_modal_add_password_modal_component__ = __webpack_require__("../../../../../src/app/add-password-modal/add-password-modal.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_crypto_service__ = __webpack_require__("../../../../../src/app/services/crypto.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -195,6 +197,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+
 
 
 
@@ -254,20 +257,37 @@ var AppComponent = /** @class */ (function () {
             });
         });
     };
-    AppComponent.prototype.revealPassword = function (enrcyptedPassword) {
+    AppComponent.prototype.revealPassword = function (credentails) {
         return __awaiter(this, void 0, void 0, function () {
-            var secret, password;
+            var _this = this;
+            var secret, palintextPassword;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.dbservice.getSecretKey()];
                     case 1:
                         secret = _a.sent();
                         console.log('secret key', secret);
-                        password = this.cryptoService.decrypt(enrcyptedPassword, secret);
-                        console.log('Your password is ', password);
+                        palintextPassword = this.cryptoService.decrypt(credentails.password, secret);
+                        console.log('Your password is ', palintextPassword);
+                        credentails.plaintextPassword = palintextPassword;
+                        this.cd.detectChanges();
+                        __WEBPACK_IMPORTED_MODULE_4_rxjs__["Observable"].timer(5000).subscribe(function (res) {
+                            console.log('time elapsed');
+                            credentails.plaintextPassword = '';
+                            _this.cd.detectChanges();
+                        });
                         return [2 /*return*/];
                 }
             });
+        });
+    };
+    AppComponent.prototype.delete = function (credentail) {
+        var _this = this;
+        this.dbservice.deletePassword(credentail)
+            .then(function (res) {
+            console.log('Delete res', res);
+            _this.getCredentials();
+            _this.cd.detectChanges();
         });
     };
     __decorate([
@@ -463,6 +483,10 @@ var IndexedDbService = /** @class */ (function () {
     IndexedDbService.prototype.getPasswords = function () {
         return this.passwordsCollection.find({}).toArray();
     };
+    IndexedDbService.prototype.deletePassword = function (credetials) {
+        return this.passwordsCollection.remove(credetials);
+    };
+    /* Key releated code */
     IndexedDbService.prototype.getSecretKey = function () {
         return __awaiter(this, void 0, void 0, function () {
             var key;
