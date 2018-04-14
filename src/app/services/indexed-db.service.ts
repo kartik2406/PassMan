@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as zango from 'zangodb';
+import { ServiceDetails } from '../models/service-details';
 @Injectable()
 export class IndexedDbService {
   private db: zango.Db;
@@ -26,6 +27,11 @@ export class IndexedDbService {
   getPasswords(){
     return this.passwordsCollection.find({}).toArray();
   }
+
+  deletePassword(credetials: ServiceDetails){
+    return this.passwordsCollection.remove(credetials);
+  }
+  /* Key releated code */
   async getSecretKey(): Promise<string>{
     let key = await this.keyCollection.findOne({});
     return key ? key['secret']: key;

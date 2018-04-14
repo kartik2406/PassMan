@@ -76,4 +76,13 @@ export class AppComponent implements OnInit {
        this.cd.detectChanges();
      });
   }
+
+  delete(credentail: ServiceDetails){
+    this.dbservice.deletePassword(credentail)
+      .then(res =>{
+        console.log('Delete res', res)
+        this.getCredentials();
+        this.cd.detectChanges();
+      })
+  }
 }
