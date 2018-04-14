@@ -20,7 +20,7 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_lazy_route_resource lazy re
 /***/ "../../../../../src/app/add-password-modal/add-password-modal.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div  id=\"add-password-modal\" class=\"modal\">\n\n  <!-- Modal content -->\n  <div  class=\"modal-content\">\n    <div class=\"modal-header\">\n      <div class=\"title\">\n        Add Password\n      </div>\n      <span class=\"close\" (click)=\"close()\">\n        <i class=\"fa fa-times\"></i>\n      </span>\n    </div>\n\n    <div class=\"modal-body\">\n      <form class=\"add-password-form\">\n          <div class=\"form-group\">\n              <input type=\"text pull-right\" name=\"service\" placeholder=\"Enter service name\">\n          </div>\n        <div class=\"form-group\">\n            <input type=\"text\" name=\"username\"  placeholder=\"Enter user name / email\">\n        </div>\n        <div class=\"form-group\">\n            <input type=\"password\" name=\"password\"  placeholder=\"Enter password\">\n        </div>\n\n        <button class=\"btn btn-primary\">\n          Save\n        </button>\n      </form>\n    </div>\n  </div>\n\n</div>\n"
+module.exports = "<div  id=\"add-password-modal\" class=\"modal\">\n\n  <!-- Modal content -->\n  <div  class=\"modal-content\">\n    <div class=\"modal-header\">\n      <div class=\"title\">\n        Add Password\n      </div>\n      <span class=\"close\" (click)=\"close()\">\n        <i class=\"fa fa-times\"></i>\n      </span>\n    </div>\n\n    <div class=\"modal-body\">\n      <form class=\"add-password-form\" [formGroup]=\"addPasswordForm\">\n          <div class=\"form-group\">\n              <input type=\"text pull-right\" name=\"service\" placeholder=\"Enter service name\" formControlName=\"service\">\n          </div>\n        <div class=\"form-group\">\n            <input type=\"text\" name=\"username\"  placeholder=\"Enter user name / email\" formControlName=\"username\">\n        </div>\n        <div class=\"form-group\">\n            <input type=\"password\" name=\"password\"  placeholder=\"Enter password\" formControlName=\"password\">\n        </div>\n\n        <button class=\"btn btn-primary\" (click)=\"emitSave()\" [disabled]=\"addPasswordForm.invalid\">\n          Save\n        </button>\n      </form>\n    </div>\n  </div>\n\n</div>\n"
 
 /***/ }),
 
@@ -48,6 +48,7 @@ module.exports = module.exports.toString();
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddPasswordModalComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -58,32 +59,56 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var AddPasswordModalComponent = /** @class */ (function () {
-    function AddPasswordModalComponent() {
+    function AddPasswordModalComponent(fb) {
+        this.fb = fb;
+        this.save = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* EventEmitter */]();
     }
     AddPasswordModalComponent.prototype.ngOnInit = function () {
+        this.creatForm();
+    };
+    AddPasswordModalComponent.prototype.creatForm = function () {
+        this.addPasswordForm = this.fb.group({
+            service: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].required],
+            username: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].required],
+            password: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].required]
+        });
     };
     AddPasswordModalComponent.prototype.show = function () {
-        var modal = document.getElementById('add-password-modal');
-        var body = document.querySelector('body');
+        var modal = document.getElementById("add-password-modal");
+        var body = document.querySelector("body");
         //console.log(modal);
-        modal.style.display = 'block';
-        body.style.overflow = 'hidden';
+        modal.style.display = "block";
+        body.style.overflow = "hidden";
     };
     AddPasswordModalComponent.prototype.close = function () {
-        var modal = document.getElementById('add-password-modal');
-        var body = document.querySelector('body');
+        var modal = document.getElementById("add-password-modal");
+        var body = document.querySelector("body");
         //console.log(modal);
-        modal.style.display = 'none';
-        body.style.overflow = 'scroll';
+        modal.style.display = "none";
+        body.style.overflow = "scroll";
+        this.addPasswordForm.reset();
     };
+    AddPasswordModalComponent.prototype.emitSave = function () {
+        this.save.emit({
+            service: this.addPasswordForm.controls.service.value,
+            username: this.addPasswordForm.controls.username.value,
+            password: this.addPasswordForm.controls.password.value
+        });
+        this.close();
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* Output */])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* EventEmitter */])
+    ], AddPasswordModalComponent.prototype, "save", void 0);
     AddPasswordModalComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'app-add-password-modal',
+            selector: "app-add-password-modal",
             template: __webpack_require__("../../../../../src/app/add-password-modal/add-password-modal.component.html"),
             styles: [__webpack_require__("../../../../../src/app/add-password-modal/add-password-modal.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]])
     ], AddPasswordModalComponent);
     return AddPasswordModalComponent;
 }());
@@ -95,7 +120,7 @@ var AddPasswordModalComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"header header-fixed\">\n\n  <div class=\"\">\n    PassMan\n  </div>\n  <div class=\"\">\n    <button class=\"btn btn-accent change-icon\" style=\"width:85px\" (click)=\"openAddModal()\">\n      New\n      <i class=\"fa fa-pencil-square-o\"></i>\n      <i class=\"fa fa-pencil-square\"></i>\n    </button>\n  </div>\n\n</nav>\n<div class=\"container\">\n  <div *ngFor=\"let credential of credentials\" class=\"card\">\n    <div class=\"card-header\">\n      <div class=\"copy-password\" (click)=\"copyPassword($event)\">\n        <i class=\"fa fa-clone\"></i>\n      </div>\n\n      <div class=\"title\">\n        {{credential.service}}\n      </div>\n\n      <div class=\"card-close\">\n        <i class=\"fa fa-trash-o fa-lg\"></i>\n      </div>\n    </div>\n    <div class=\"content\">\n      <div>\n        <span class=\"pull-left\">\n          Username\n        </span>\n        <span class=\"pull-right\">\n          {{credential.username}}\n        </span>\n      </div>\n    </div>\n    <div class=\"actions\">\n      <button class=\"btn btn-primary change-icon\">\n        Reveal Password\n        <i class=\"fa fa-lock\"></i>\n        <i class=\"fa fa-unlock\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n<button class=\"fab-icon fab-icon-fixed mobile-only\" (click)=\"openAddModal()\">\n  <i class=\"fa fa-pencil-square fa-lg\"></i>\n</button>\n<app-add-password-modal></app-add-password-modal>\n"
+module.exports = "<nav class=\"header header-fixed\">\n\n  <div class=\"\">\n    PassMan\n  </div>\n  <div class=\"\">\n    <button class=\"btn btn-accent change-icon\" style=\"width:85px\" (click)=\"openAddModal()\">\n      New\n      <i class=\"fa fa-pencil-square-o\"></i>\n      <i class=\"fa fa-pencil-square\"></i>\n    </button>\n  </div>\n\n</nav>\n<div class=\"container\">\n  <div *ngFor=\"let credential of credentials\" class=\"card\">\n    <div class=\"card-header\">\n      <div class=\"copy-password\" (click)=\"copyPassword($event)\">\n        <i class=\"fa fa-clone\"></i>\n      </div>\n\n      <div class=\"title\">\n        {{credential.service}}\n      </div>\n\n      <div class=\"card-close\">\n        <i class=\"fa fa-trash-o fa-lg\"></i>\n      </div>\n    </div>\n    <div class=\"content\">\n      <div>\n        <span class=\"pull-left\">\n          Username\n        </span>\n        <span class=\"pull-right\">\n          {{credential.username}}\n        </span>\n      </div>\n    </div>\n    <div class=\"actions\">\n      <button class=\"btn btn-primary change-icon\" (click)=\"revealPassword(credential.password)\">\n        Reveal Password\n        <i class=\"fa fa-lock\"></i>\n        <i class=\"fa fa-unlock\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n<button class=\"fab-icon fab-icon-fixed mobile-only\" (click)=\"openAddModal()\">\n  <i class=\"fa fa-pencil-square fa-lg\"></i>\n</button>\n<app-add-password-modal (save)=\"savePassword($event)\"></app-add-password-modal>\n"
 
 /***/ }),
 
@@ -125,6 +150,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_indexed_db_service__ = __webpack_require__("../../../../../src/app/services/indexed-db.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__add_password_modal_add_password_modal_component__ = __webpack_require__("../../../../../src/app/add-password-modal/add-password-modal.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_crypto_service__ = __webpack_require__("../../../../../src/app/services/crypto.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -134,12 +160,49 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
 
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(dbservice, cd) {
+    function AppComponent(dbservice, cryptoService, cd) {
         this.dbservice = dbservice;
+        this.cryptoService = cryptoService;
         this.cd = cd;
         this.title = 'app';
     }
@@ -164,6 +227,49 @@ var AppComponent = /** @class */ (function () {
         console.log('Copying');
         document.execCommand('Copy', false, 'This is the password');
     };
+    AppComponent.prototype.savePassword = function (userDetails) {
+        return __awaiter(this, void 0, void 0, function () {
+            var checkSecret, secret;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log(userDetails);
+                        return [4 /*yield*/, this.dbservice.getSecretKey()];
+                    case 1:
+                        checkSecret = _a.sent();
+                        if (checkSecret) {
+                            secret = checkSecret;
+                            console.log(secret);
+                        }
+                        else {
+                            secret = this.cryptoService.generateSecretKey();
+                            this.dbservice.addSecretKey(secret).then(function (res) { return console.log('Key added'); });
+                        }
+                        this.dbservice
+                            .addPassword(userDetails.service, userDetails.username, this.cryptoService.encrypt(userDetails.password, secret))
+                            .then(function (res) { return console.log('saved'); });
+                        this.getCredentials();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    AppComponent.prototype.revealPassword = function (enrcyptedPassword) {
+        return __awaiter(this, void 0, void 0, function () {
+            var secret, password;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.dbservice.getSecretKey()];
+                    case 1:
+                        secret = _a.sent();
+                        console.log('secret key', secret);
+                        password = this.cryptoService.decrypt(enrcyptedPassword, secret);
+                        console.log('Your password is ', password);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_3" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_2__add_password_modal_add_password_modal_component__["a" /* AddPasswordModalComponent */]),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__add_password_modal_add_password_modal_component__["a" /* AddPasswordModalComponent */])
@@ -175,6 +281,7 @@ var AppComponent = /** @class */ (function () {
             styles: [__webpack_require__("../../../../../src/app/app.component.scss")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_indexed_db_service__["a" /* IndexedDbService */],
+            __WEBPACK_IMPORTED_MODULE_3__services_crypto_service__["a" /* CryptoService */],
             __WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* ChangeDetectorRef */]])
     ], AppComponent);
     return AppComponent;
@@ -195,12 +302,14 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_indexed_db_service__ = __webpack_require__("../../../../../src/app/services/indexed-db.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__add_password_modal_add_password_modal_component__ = __webpack_require__("../../../../../src/app/add-password-modal/add-password-modal.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_crypto_service__ = __webpack_require__("../../../../../src/app/services/crypto.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -218,13 +327,62 @@ var AppModule = /** @class */ (function () {
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* ReactiveFormsModule */]
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_4__services_indexed_db_service__["a" /* IndexedDbService */]],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_4__services_indexed_db_service__["a" /* IndexedDbService */],
+                __WEBPACK_IMPORTED_MODULE_6__services_crypto_service__["a" /* CryptoService */]
+            ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/crypto.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CryptoService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_crypto_js__ = __webpack_require__("../../../../crypto-js/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_crypto_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_crypto_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_uuid__ = __webpack_require__("../../../../node-uuid/uuid.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_node_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_node_uuid__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var CryptoService = /** @class */ (function () {
+    function CryptoService() {
+    }
+    CryptoService.prototype.encrypt = function (password, secret) {
+        return __WEBPACK_IMPORTED_MODULE_1_crypto_js__["AES"].encrypt(password, secret).toString();
+    };
+    CryptoService.prototype.decrypt = function (encryptedPassword, secret) {
+        return __WEBPACK_IMPORTED_MODULE_1_crypto_js__["AES"].decrypt(encryptedPassword, secret).toString(__WEBPACK_IMPORTED_MODULE_1_crypto_js__["enc"].Utf8);
+    };
+    CryptoService.prototype.generateSecretKey = function () {
+        return __WEBPACK_IMPORTED_MODULE_2_node_uuid__["v4"]();
+    };
+    CryptoService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* Injectable */])(),
+        __metadata("design:paramtypes", [])
+    ], CryptoService);
+    return CryptoService;
 }());
 
 
@@ -248,12 +406,48 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 
 
 var IndexedDbService = /** @class */ (function () {
     function IndexedDbService() {
-        this.db = new __WEBPACK_IMPORTED_MODULE_1_zangodb__["Db"]('mydb', 1, { passwords: ['service'] });
+        this.db = new __WEBPACK_IMPORTED_MODULE_1_zangodb__["Db"]('mydb', 2, { passwords: ['service'], key: ['secret'] });
         this.passwordsCollection = this.db.collection('passwords');
+        this.keyCollection = this.db.collection('key');
         this.getAll().then();
     }
     IndexedDbService.prototype.getAll = function () {
@@ -268,6 +462,24 @@ var IndexedDbService = /** @class */ (function () {
     };
     IndexedDbService.prototype.getPasswords = function () {
         return this.passwordsCollection.find({}).toArray();
+    };
+    IndexedDbService.prototype.getSecretKey = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var key;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.keyCollection.findOne({})];
+                    case 1:
+                        key = _a.sent();
+                        return [2 /*return*/, key ? key['secret'] : key];
+                }
+            });
+        });
+    };
+    IndexedDbService.prototype.addSecretKey = function (secret) {
+        return this.keyCollection.insert({
+            secret: secret
+        });
     };
     IndexedDbService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* Injectable */])(),
