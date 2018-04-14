@@ -36,9 +36,12 @@
           {{credential.username}}
         </span>
       </div>
+      <div class="card-content-plaintext-password clearfix" [class.slide-down]="credential.plaintextPassword">
+        {{credential.plaintextPassword}}
+      </div>
     </div>
     <div class="actions">
-      <button class="btn btn-primary change-icon" (click)="revealPassword(credential.password)">
+      <button class="btn btn-primary change-icon" (click)="revealPassword(credential)" [disabled]="credential.plaintextPassword">
         Reveal Password
         <i class="fa fa-lock"></i>
         <i class="fa fa-unlock"></i>

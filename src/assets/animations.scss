@@ -1,0 +1,15 @@
+.slide-down{
+  animation: slidedown 2s;
+  
+}
+@keyframes slidedown {
+   0%{
+        margin: -100px;
+       opacity: 0;
+   }
+   50%{
+        margin: 0;
+       opacity: 1;
+
+   }
+}

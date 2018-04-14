@@ -3,7 +3,8 @@ import { IndexedDbService } from './services/indexed-db.service';
 import { AddPasswordModalComponent } from './add-password-modal/add-password-modal.component';
 import { CryptoService } from './services/crypto.service';
 import { ServiceDetails } from './models/service-details';
-
+import * as Rx from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -62,10 +63,17 @@ export class AppComponent implements OnInit {
     .then(res => console.log('saved'));
     this.getCredentials();
   }
-  async revealPassword(enrcyptedPassword: string){
+  async revealPassword(credentails: ServiceDetails){
      let secret = await this.dbservice.getSecretKey();
      console.log('secret key', secret);
-     let password = this.cryptoService.decrypt(enrcyptedPassword, secret);
-     console.log('Your password is ', password);
+     let palintextPassword = this.cryptoService.decrypt(credentails.password, secret);
+     console.log('Your password is ', palintextPassword);
+     credentails.plaintextPassword = palintextPassword;
+     this.cd.detectChanges();
+     Rx.Observable.timer(5000).subscribe((res) =>{
+       console.log('time elapsed');
+       credentails.plaintextPassword = '';
+       this.cd.detectChanges();
+     });
   }
 }
