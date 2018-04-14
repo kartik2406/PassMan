@@ -15,7 +15,7 @@
   transform: translateY(2px);
 }
 
-.btn:disabled{
+.btn:disabled {
   background-color: grey !important;
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2);
   cursor: not-allowed;
@@ -54,22 +54,43 @@
 }
 
 /*fab-icon: round buttons with icons*/
-
-.fab-icon {
+@mixin fab-icon-base($backgroundColor, $color) {
   border-radius: 50%;
   border: none;
   padding: 10px 10px 10px 10px;
   box-shadow: 4px 5px 5px 1px rgba(0, 0, 0, 0.2);
-  background-color: $color-accent;
-  color: white;
+  background-color: $backgroundColor;
+  color: $color;
 }
-.fab-icon:active {
+@mixin fab-icon-active(){
   box-shadow: none;
   transform: translateY(2px);
+}
+.fab-icon {
+  @include fab-icon-base($color-accent, white);
+}
+.fab-icon:active {
+  @include fab-icon-active();
 }
 .fab-icon-fixed {
   position: fixed;
   right: 2%;
   bottom: 5%;
   z-index: 500;
+}
+
+@mixin fab-icon-on-hover-base($color, $ligtenBy, $transition){
+  color: lighten($color, $ligtenBy);
+  transition: $transition;
+}
+@mixin fab-icon-on-hover-state-hover($backgroundColor, $ligtenBy, $color){
+  border-radius: 50%;
+  background-color: lighten($backgroundColor, $ligtenBy);
+  color: $color;
+  padding: 10px 10px 10px 10px;
+  box-shadow: 4px 5px 5px 1px rgba(0, 0, 0, 0.2);
+}
+@mixin fab-icon-on-hover-state-active(){
+  box-shadow: none;
+  transform: translateY(2px);
 }

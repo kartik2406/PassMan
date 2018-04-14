@@ -1,4 +1,11 @@
-import { Component, OnInit, EventEmitter, Output } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Input,
+  Output,
+  ChangeDetectorRef
+} from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ServiceDetails } from "../models/service-details";
 @Component({
@@ -7,25 +14,41 @@ import { ServiceDetails } from "../models/service-details";
   styleUrls: ["./add-password-modal.component.scss"]
 })
 export class AddPasswordModalComponent implements OnInit {
-  @Output() save: EventEmitter<ServiceDetails> = new EventEmitter<ServiceDetails>();
+  @Output()
+  save: EventEmitter<ServiceDetails> = new EventEmitter<ServiceDetails>();
+  @Output()
+  edit: EventEmitter<ServiceDetails[]> = new EventEmitter<ServiceDetails[]>();
+  @Input() credential: ServiceDetails;
   private addPasswordForm: FormGroup;
-  constructor(
-    private fb: FormBuilder
-  ) {}
+  constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.creatForm();
   }
 
-  creatForm(){
+  creatForm() {
     this.addPasswordForm = this.fb.group({
-      service: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    })
+      service: [
+        this.credential ? this.credential.service : "",
+        Validators.required
+      ],
+      username: [
+        this.credential ? this.credential.username : "",
+        Validators.required
+      ],
+      password: [
+        this.credential ? this.credential.password : "",
+        Validators.required
+      ]
+    });
   }
 
-  show() {
+  show(credential?: ServiceDetails) {
+    if (credential) {
+      this.credential = credential;
+      this.creatForm();
+      this.cd.detectChanges();
+    }
     var modal = document.getElementById("add-password-modal");
     var body = document.querySelector("body");
     //console.log(modal);
@@ -39,6 +62,7 @@ export class AddPasswordModalComponent implements OnInit {
     modal.style.display = "none";
     body.style.overflow = "scroll";
     this.addPasswordForm.reset();
+    this.credential = null;
   }
   emitSave() {
     this.save.emit({
@@ -46,6 +70,17 @@ export class AddPasswordModalComponent implements OnInit {
       username: this.addPasswordForm.controls.username.value,
       password: this.addPasswordForm.controls.password.value
     });
+    this.close();
+  }
+  emitEdit() {
+    let emitData: ServiceDetails[] = [];
+    emitData.push(this.credential);
+    emitData.push({
+      service: this.addPasswordForm.controls.service.value,
+      username: this.addPasswordForm.controls.username.value,
+      password: this.addPasswordForm.controls.password.value
+    });
+    this.edit.emit(emitData);
     this.close();
   }
 }
