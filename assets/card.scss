@@ -69,7 +69,7 @@
 .card-header {
   display: grid;
   padding: 10px 10px 10px 10px;
-  grid-template-columns: 40px 1fr 40px;
+  grid-template-columns: 1fr 40px 40px 40px;
   align-items: center;
   justify-items: center;
 }
@@ -79,26 +79,20 @@
 /*Todo: seperate circular icon to circular button*/
 
 .card-close {
-  color: lighten(red, 14);
-  transition: 0.3s;
+  @include fab-icon-on-hover-base(red, 14, 0.3s);
 }
 
 .card-close:hover {
-  border-radius: 50%;
-  background-color: lighten(red, 14);
-  color: white;
-  padding: 10px 10px 10px 10px;
-  box-shadow: 4px 5px 5px 1px rgba(0, 0, 0, 0.2);
+  @include fab-icon-on-hover-state-hover(red, 14, white);
 }
 
 .card-close:active {
-  box-shadow: none;
-  transform: translateY(2px);
+  @include fab-icon-on-hover-state-active();
 }
 
 /*initially the buton will be hidden*/
 
-.card-close>.fa {
+.card-close > .fa {
   display: none;
 }
 
@@ -106,31 +100,49 @@
   display: block;
 }
 
+/*copy fab button*/
 .copy-password {
-  color: lighten(green, 14);
-  transition: 0.3s;
+  @include fab-icon-on-hover-base(green, 14, 0.3s);
 }
 
 .copy-password:hover {
-  border-radius: 50%;
-  background-color: lighten(green, 14);
-  color: white;
-  padding: 10px 10px 10px 10px;
-  box-shadow: 4px 5px 5px 1px rgba(0, 0, 0, 0.2);
+  @include fab-icon-on-hover-state-hover(green, 14, white);
 }
 
 .copy-password:active {
-  box-shadow: none;
-  transform: translateY(2px);
+  @include fab-icon-on-hover-state-active();
 }
 
 /*initially the buton will be hidden*/
 
-.copy-password>.fa {
+.copy-password > .fa {
   display: none;
 }
 
 .card:hover .copy-password .fa {
+  display: block;
+}
+
+/*edit fab button*/
+.edit-password {
+  @include fab-icon-on-hover-base(blue, 14, 0.3s);
+}
+
+.edit-password:hover {
+  @include fab-icon-on-hover-state-hover(blue, 14, white);
+}
+
+.edit-password:active {
+  @include fab-icon-on-hover-state-active();
+}
+
+/*initially the buton will be hidden*/
+
+.edit-password > .fa {
+  display: none;
+}
+
+.card:hover .edit-password .fa {
   display: block;
 }
 
@@ -162,8 +174,7 @@
   font-size: 18px;
 }
 
-.card-content-plaintext-password{
+.card-content-plaintext-password {
   text-align: center;
   word-break: break-all;
 }
-

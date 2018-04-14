@@ -20,7 +20,7 @@ webpackEmptyAsyncContext.id = "../../../../../src/$$_lazy_route_resource lazy re
 /***/ "../../../../../src/app/add-password-modal/add-password-modal.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div  id=\"add-password-modal\" class=\"modal\">\n\n  <!-- Modal content -->\n  <div  class=\"modal-content\">\n    <div class=\"modal-header\">\n      <div class=\"title\">\n        Add Password\n      </div>\n      <span class=\"close\" (click)=\"close()\">\n        <i class=\"fa fa-times\"></i>\n      </span>\n    </div>\n\n    <div class=\"modal-body\">\n      <form class=\"add-password-form\" [formGroup]=\"addPasswordForm\">\n          <div class=\"form-group\">\n              <input type=\"text pull-right\" name=\"service\" placeholder=\"Enter service name\" formControlName=\"service\">\n          </div>\n        <div class=\"form-group\">\n            <input type=\"text\" name=\"username\"  placeholder=\"Enter user name / email\" formControlName=\"username\">\n        </div>\n        <div class=\"form-group\">\n            <input type=\"password\" name=\"password\"  placeholder=\"Enter password\" formControlName=\"password\">\n        </div>\n\n        <button class=\"btn btn-primary\" (click)=\"emitSave()\" [disabled]=\"addPasswordForm.invalid\">\n          Save\n        </button>\n      </form>\n    </div>\n  </div>\n\n</div>\n"
+module.exports = "<div id=\"add-password-modal\" class=\"modal\">\n\n  <!-- Modal content -->\n  <div class=\"modal-content\">\n    <div class=\"modal-header\">\n      <div class=\"title\">\n        Add Password\n      </div>\n      <span class=\"close\" (click)=\"close()\">\n        <i class=\"fa fa-times\"></i>\n      </span>\n    </div>\n\n    <div class=\"modal-body\">\n      <form class=\"add-password-form\" [formGroup]=\"addPasswordForm\">\n        <div class=\"form-group\">\n          <input type=\"text pull-right\" name=\"service\" placeholder=\"Enter service name\" formControlName=\"service\">\n        </div>\n        <div class=\"form-group\">\n          <input type=\"text\" name=\"username\" placeholder=\"Enter user name / email\" formControlName=\"username\">\n        </div>\n        <div class=\"form-group\">\n          <input type=\"password\" name=\"password\" placeholder=\"Enter password\" formControlName=\"password\">\n        </div>\n\n        <button class=\"btn btn-primary\" (click)=\"credential ? emitEdit() : emitSave()\" [disabled]=\"addPasswordForm.invalid\">\n          {{credential? \"Edit\" : \"Save\"}}\n        </button>\n      </form>\n    </div>\n  </div>\n\n</div>"
 
 /***/ }),
 
@@ -32,7 +32,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".modal {\n  display: none;\n  /* Hidden by default */\n  position: fixed;\n  /* Stay in place */\n  z-index: 1050;\n  /* Sit on top */\n  left: 0;\n  top: 0;\n  padding-top: calc(var(--header-size) + 20px);\n  width: 100%;\n  /* Full width */\n  height: 100%;\n  /* Full height */\n  overflow: auto;\n  /* Enable scroll if needed */\n  background-color: black;\n  /* Fallback color */\n  background-color: rgba(0, 0, 0, 0.4);\n  /* Black w/ opacity */ }\n\n/* Modal Content/Box */\n\n.modal-content {\n  background-color: #fefefe;\n  margin: 6% auto;\n  /* 15% from the top and centered */\n  padding: 5px 20px 10px 20px;\n  width: 30%;\n  /* Could be more or less, depending on screen size */\n  -webkit-animation-name: animatetop;\n          animation-name: animatetop;\n  -webkit-animation-duration: 0.4s;\n          animation-duration: 0.4s; }\n\n/* Add Animation */\n\n@-webkit-keyframes animatetop {\n  from {\n    top: -300px;\n    opacity: 0; }\n  to {\n    top: 0;\n    opacity: 1; } }\n\n@keyframes animatetop {\n  from {\n    top: -300px;\n    opacity: 0; }\n  to {\n    top: 0;\n    opacity: 1; } }\n\n@media screen and (max-width: 768px) {\n  .modal-content {\n    width: 80%; } }\n\n/* The Close Button */\n\n.close {\n  color: #aaa;\n  float: right;\n  font-size: 28px;\n  font-weight: bold; }\n\n.close:hover,\n.close:focus {\n  color: #ff4747;\n  text-decoration: none;\n  cursor: pointer; }\n\n.modal-header {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr 50px;\n      grid-template-columns: 1fr 50px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  justify-items: center; }\n\n.modal-header .title {\n  font-style: var(--heading-font-family);\n  font-size: 24px;\n  padding: 20px 10px 0px 10px; }\n\n.modal-body {\n  padding: 20px; }\n\n.add-password-form {\n  display: -ms-grid;\n  display: grid;\n  grid-template: 1fr;\n  grid-gap: 20px; }\n\n.form-group {\n  width: 100%;\n  display: -ms-grid;\n  display: grid; }\n\n.form-group input {\n  border-radius: 50px;\n  border: none;\n  background: #f1f1f1;\n  padding: 12px;\n  -webkit-transition: 0.5s;\n  transition: 0.5s; }\n\n.form-group input:focus {\n  background-color: #ddd;\n  outline: none;\n  -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.2);\n          box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.2); }\n", ""]);
+exports.push([module.i, ".modal {\n  display: none;\n  /* Hidden by default */\n  position: fixed;\n  /* Stay in place */\n  z-index: 1050;\n  /* Sit on top */\n  left: 0;\n  top: 0;\n  padding-top: calc(var(--header-size) + 20px);\n  width: 100%;\n  /* Full width */\n  height: 100%;\n  /* Full height */\n  overflow: auto;\n  /* Enable scroll if needed */\n  background-color: black;\n  /* Fallback color */\n  background-color: rgba(0, 0, 0, 0.4);\n  /* Black w/ opacity */ }\n\n/* Modal Content/Box */\n\n.modal-content {\n  background-color: #fefefe;\n  margin: 6% auto;\n  /* 15% from the top and centered */\n  padding: 5px 20px 10px 20px;\n  width: 30%;\n  /* Could be more or less, depending on screen size */\n  -webkit-animation-name: animatetop;\n          animation-name: animatetop;\n  -webkit-animation-duration: 0.4s;\n          animation-duration: 0.4s; }\n\n/* Add Animation */\n\n@-webkit-keyframes animatetop {\n  from {\n    top: -300px;\n    opacity: 0; }\n  to {\n    top: 0;\n    opacity: 1; } }\n\n@keyframes animatetop {\n  from {\n    top: -300px;\n    opacity: 0; }\n  to {\n    top: 0;\n    opacity: 1; } }\n\n@media screen and (max-width: 768px) {\n  .modal-content {\n    width: 80%; } }\n\n/* The Close Button */\n\n.close {\n  color: #aaa;\n  float: right;\n  font-size: 28px;\n  font-weight: bold; }\n\n.close:hover,\n.close:focus {\n  color: #ff4747;\n  text-decoration: none;\n  cursor: pointer; }\n\n.modal-header {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-columns: 1fr 50px;\n      grid-template-columns: 1fr 50px;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  justify-items: center; }\n\n.modal-header .title {\n  font-style: var(--heading-font-family);\n  font-size: 24px;\n  padding: 20px 10px 0px 10px; }\n\n.modal-body {\n  padding: 20px; }\n\n.add-password-form {\n  display: -ms-grid;\n  display: grid;\n  -ms-grid-rows: 1fr;\n      grid-template-rows: 1fr;\n  grid-gap: 20px; }\n\n.form-group {\n  width: 100%;\n  display: -ms-grid;\n  display: grid; }\n\n.form-group input {\n  border-radius: 50px;\n  border: none;\n  background: #f1f1f1;\n  padding: 12px;\n  -webkit-transition: 0.4s;\n  transition: 0.4s; }\n\n.form-group input:focus {\n  background-color: #ddd;\n  outline: none;\n  -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.2);\n          box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.2); }\n", ""]);
 
 // exports
 
@@ -49,6 +49,7 @@ module.exports = module.exports.toString();
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddPasswordModalComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_service_details__ = __webpack_require__("../../../../../src/app/models/service-details.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -60,22 +61,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var AddPasswordModalComponent = /** @class */ (function () {
-    function AddPasswordModalComponent(fb) {
+    function AddPasswordModalComponent(fb, cd) {
         this.fb = fb;
+        this.cd = cd;
         this.save = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* EventEmitter */]();
+        this.edit = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* EventEmitter */]();
     }
     AddPasswordModalComponent.prototype.ngOnInit = function () {
         this.creatForm();
     };
     AddPasswordModalComponent.prototype.creatForm = function () {
         this.addPasswordForm = this.fb.group({
-            service: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].required],
-            username: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].required],
-            password: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].required]
+            service: [
+                this.credential ? this.credential.service : "",
+                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].required
+            ],
+            username: [
+                this.credential ? this.credential.username : "",
+                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].required
+            ],
+            password: [
+                this.credential ? this.credential.password : "",
+                __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].required
+            ]
         });
     };
-    AddPasswordModalComponent.prototype.show = function () {
+    AddPasswordModalComponent.prototype.show = function (credential) {
+        if (credential) {
+            this.credential = credential;
+            this.creatForm();
+            this.cd.detectChanges();
+        }
         var modal = document.getElementById("add-password-modal");
         var body = document.querySelector("body");
         //console.log(modal);
@@ -89,6 +107,7 @@ var AddPasswordModalComponent = /** @class */ (function () {
         modal.style.display = "none";
         body.style.overflow = "scroll";
         this.addPasswordForm.reset();
+        this.credential = null;
     };
     AddPasswordModalComponent.prototype.emitSave = function () {
         this.save.emit({
@@ -98,17 +117,36 @@ var AddPasswordModalComponent = /** @class */ (function () {
         });
         this.close();
     };
+    AddPasswordModalComponent.prototype.emitEdit = function () {
+        var emitData = [];
+        emitData.push(this.credential);
+        emitData.push({
+            service: this.addPasswordForm.controls.service.value,
+            username: this.addPasswordForm.controls.username.value,
+            password: this.addPasswordForm.controls.password.value
+        });
+        this.edit.emit(emitData);
+        this.close();
+    };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* Output */])(),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* EventEmitter */])
     ], AddPasswordModalComponent.prototype, "save", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["K" /* Output */])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* EventEmitter */])
+    ], AddPasswordModalComponent.prototype, "edit", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Input */])(),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_2__models_service_details__["a" /* ServiceDetails */])
+    ], AddPasswordModalComponent.prototype, "credential", void 0);
     AddPasswordModalComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: "app-add-password-modal",
             template: __webpack_require__("../../../../../src/app/add-password-modal/add-password-modal.component.html"),
             styles: [__webpack_require__("../../../../../src/app/add-password-modal/add-password-modal.component.scss")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* ChangeDetectorRef */]])
     ], AddPasswordModalComponent);
     return AddPasswordModalComponent;
 }());
@@ -120,7 +158,7 @@ var AddPasswordModalComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"header header-fixed\">\n\n  <div class=\"\">\n    PassMan\n  </div>\n  <div class=\"\">\n    <button class=\"btn btn-accent change-icon\" style=\"width:85px\" (click)=\"openAddModal()\">\n      New\n      <i class=\"fa fa-pencil-square-o\"></i>\n      <i class=\"fa fa-pencil-square\"></i>\n    </button>\n  </div>\n\n</nav>\n<div class=\"container\">\n  <div *ngFor=\"let credential of credentials\" class=\"card\">\n    <div class=\"card-header\">\n      <div class=\"copy-password\" (click)=\"copyPassword($event)\">\n        <i class=\"fa fa-clone\"></i>\n      </div>\n\n      <div class=\"title\">\n        {{credential.service}}\n      </div>\n\n      <div class=\"card-close\" (click)=\"delete(credential)\">\n        <i class=\"fa fa-trash-o fa-lg\"></i>\n      </div>\n    </div>\n    <div class=\"content\">\n      <div>\n        <span class=\"pull-left\">\n          Username\n        </span>\n        <span class=\"pull-right\">\n          {{credential.username}}\n        </span>\n      </div>\n      <div class=\"card-content-plaintext-password clearfix\" [class.slide-down]=\"credential.plaintextPassword\">\n        {{credential.plaintextPassword}}\n      </div>\n    </div>\n    <div class=\"actions\">\n      <button class=\"btn btn-primary change-icon\" (click)=\"revealPassword(credential)\" [disabled]=\"credential.plaintextPassword\">\n        Reveal Password\n        <i class=\"fa fa-lock\"></i>\n        <i class=\"fa fa-unlock\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n<button class=\"fab-icon fab-icon-fixed mobile-only\" (click)=\"openAddModal()\">\n  <i class=\"fa fa-pencil-square fa-lg\"></i>\n</button>\n<app-add-password-modal (save)=\"savePassword($event)\"></app-add-password-modal>\n"
+module.exports = "<nav class=\"header header-fixed\">\n\n  <div class=\"\">\n    PassMan\n  </div>\n  <div class=\"\">\n    <button class=\"btn btn-accent change-icon\" style=\"width:85px\" (click)=\"openAddModal()\">\n      New\n      <i class=\"fa fa-pencil-square-o\"></i>\n      <i class=\"fa fa-pencil-square\"></i>\n    </button>\n  </div>\n\n</nav>\n<div class=\"container\">\n  <div *ngFor=\"let credential of credentials\" class=\"card\">\n    <div class=\"card-header\">\n    \n      <div class=\"title\">\n        {{credential.service}}\n      </div>\n\n      <div class=\"copy-password\" (click)=\"copyPassword(credential)\">\n        <i class=\"fa fa-clone\"></i>\n      </div>\n      <div class=\"edit-password\" (click)=\"openEditModal(credential)\">\n        <i class=\"fa fa-pencil\"></i>\n      </div>\n      <div class=\"card-close\" (click)=\"delete(credential)\">\n        <i class=\"fa fa-trash-o fa-lg\"></i>\n      </div>\n    </div>\n    <div class=\"content\">\n      <div>\n        <span class=\"pull-left\">\n          Username\n        </span>\n        <span class=\"pull-right\">\n          {{credential.username}}\n        </span>\n      </div>\n      <div class=\"card-content-plaintext-password clearfix\" [class.slide-down]=\"credential.plaintextPassword\">\n        {{credential.plaintextPassword}}\n      </div>\n    </div>\n    <div class=\"actions\">\n      <button class=\"btn btn-primary change-icon\" (click)=\"revealPassword(credential)\" [disabled]=\"credential.plaintextPassword\">\n        Reveal Password\n        <i class=\"fa fa-lock\"></i>\n        <i class=\"fa fa-unlock\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n<button class=\"fab-icon fab-icon-fixed mobile-only\" (click)=\"openAddModal()\">\n  <i class=\"fa fa-pencil-square fa-lg\"></i>\n</button>\n<app-add-password-modal (save)=\"savePassword($event)\" (edit)=\"editPassword($event)\"></app-add-password-modal>\n"
 
 /***/ }),
 
@@ -207,7 +245,7 @@ var AppComponent = /** @class */ (function () {
         this.dbservice = dbservice;
         this.cryptoService = cryptoService;
         this.cd = cd;
-        this.title = 'app';
+        this.title = "app";
     }
     AppComponent.prototype.ngOnInit = function () {
         this.getCredentials();
@@ -218,17 +256,37 @@ var AppComponent = /** @class */ (function () {
         // })
         this.addComponent.show();
     };
+    AppComponent.prototype.openEditModal = function (credentails) {
+        return __awaiter(this, void 0, void 0, function () {
+            var secret, password;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.dbservice.getSecretKey()];
+                    case 1:
+                        secret = _a.sent();
+                        password = this.cryptoService.decrypt(credentails.password, secret);
+                        this.addComponent.show({
+                            _id: credentails._id,
+                            service: credentails.service,
+                            username: credentails.username,
+                            password: password
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     AppComponent.prototype.getCredentials = function () {
         var _this = this;
         this.dbservice.getPasswords().then(function (res) {
             _this.credentials = res;
-            console.log('Password list', _this.credentials);
+            console.log("Password list", _this.credentials);
             _this.cd.detectChanges();
         });
     };
     AppComponent.prototype.copyPassword = function (event) {
-        console.log('Copying');
-        document.execCommand('Copy', false, 'This is the password');
+        console.log("Copying");
+        document.execCommand("Copy", false, "This is the password");
     };
     AppComponent.prototype.savePassword = function (userDetails) {
         return __awaiter(this, void 0, void 0, function () {
@@ -246,12 +304,33 @@ var AppComponent = /** @class */ (function () {
                         }
                         else {
                             secret = this.cryptoService.generateSecretKey();
-                            this.dbservice.addSecretKey(secret).then(function (res) { return console.log('Key added'); });
+                            this.dbservice.addSecretKey(secret).then(function (res) { return console.log("Key added"); });
                         }
                         this.dbservice
                             .addPassword(userDetails.service, userDetails.username, this.cryptoService.encrypt(userDetails.password, secret))
-                            .then(function (res) { return console.log('saved'); });
+                            .then(function (res) { return console.log("saved"); });
                         this.getCredentials();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    AppComponent.prototype.editPassword = function (userDetails) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            var secret;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.dbservice.getSecretKey()];
+                    case 1:
+                        secret = _a.sent();
+                        userDetails[1].password = this.cryptoService.encrypt(userDetails[1].password, secret);
+                        console.log("Editing ", userDetails);
+                        this.dbservice.editPassword(userDetails[0], userDetails[1]).then(function (res) {
+                            console.log("Edit reponse", res);
+                            _this.getCredentials();
+                            _this.cd.detectChanges();
+                        });
                         return [2 /*return*/];
                 }
             });
@@ -266,14 +345,14 @@ var AppComponent = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.dbservice.getSecretKey()];
                     case 1:
                         secret = _a.sent();
-                        console.log('secret key', secret);
+                        console.log("secret key", secret);
                         palintextPassword = this.cryptoService.decrypt(credentails.password, secret);
-                        console.log('Your password is ', palintextPassword);
+                        console.log("Your password is ", palintextPassword);
                         credentails.plaintextPassword = palintextPassword;
                         this.cd.detectChanges();
                         __WEBPACK_IMPORTED_MODULE_4_rxjs__["Observable"].timer(5000).subscribe(function (res) {
-                            console.log('time elapsed');
-                            credentails.plaintextPassword = '';
+                            console.log("time elapsed");
+                            credentails.plaintextPassword = "";
                             _this.cd.detectChanges();
                         });
                         return [2 /*return*/];
@@ -283,9 +362,8 @@ var AppComponent = /** @class */ (function () {
     };
     AppComponent.prototype.delete = function (credentail) {
         var _this = this;
-        this.dbservice.deletePassword(credentail)
-            .then(function (res) {
-            console.log('Delete res', res);
+        this.dbservice.deletePassword(credentail).then(function (res) {
+            console.log("Delete res", res);
             _this.getCredentials();
             _this.cd.detectChanges();
         });
@@ -296,7 +374,7 @@ var AppComponent = /** @class */ (function () {
     ], AppComponent.prototype, "addComponent", void 0);
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'app-root',
+            selector: "app-root",
             template: __webpack_require__("../../../../../src/app/app.component.html"),
             styles: [__webpack_require__("../../../../../src/app/app.component.scss")]
         }),
@@ -358,6 +436,21 @@ var AppModule = /** @class */ (function () {
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/models/service-details.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ServiceDetails; });
+var ServiceDetails = /** @class */ (function () {
+    function ServiceDetails() {
+    }
+    return ServiceDetails;
 }());
 
 
@@ -465,9 +558,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 
 var IndexedDbService = /** @class */ (function () {
     function IndexedDbService() {
-        this.db = new __WEBPACK_IMPORTED_MODULE_1_zangodb__["Db"]('mydb', 2, { passwords: ['service'], key: ['secret'] });
-        this.passwordsCollection = this.db.collection('passwords');
-        this.keyCollection = this.db.collection('key');
+        this.db = new __WEBPACK_IMPORTED_MODULE_1_zangodb__["Db"]("mydb", 2, {
+            passwords: ["service"],
+            key: ["secret"]
+        });
+        this.passwordsCollection = this.db.collection("passwords");
+        this.keyCollection = this.db.collection("key");
         this.getAll().then();
     }
     IndexedDbService.prototype.getAll = function () {
@@ -483,6 +579,9 @@ var IndexedDbService = /** @class */ (function () {
     IndexedDbService.prototype.getPasswords = function () {
         return this.passwordsCollection.find({}).toArray();
     };
+    IndexedDbService.prototype.editPassword = function (credetials, newCredentials) {
+        return this.passwordsCollection.update({ _id: credetials._id }, newCredentials);
+    };
     IndexedDbService.prototype.deletePassword = function (credetials) {
         return this.passwordsCollection.remove(credetials);
     };
@@ -495,7 +594,7 @@ var IndexedDbService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.keyCollection.findOne({})];
                     case 1:
                         key = _a.sent();
-                        return [2 /*return*/, key ? key['secret'] : key];
+                        return [2 /*return*/, key ? key["secret"] : key];
                 }
             });
         });
