@@ -15,12 +15,12 @@
 <div class="container">
   <div *ngFor="let credential of credentials" class="card">
     <div class="card-header">
-    
+
       <div class="title">
         {{credential.service}}
       </div>
 
-      <div class="copy-password" (click)="copyPassword(credential)">
+      <div class="" (click)="copyPassword($event, credential)" [class.copy-password]="credential.plaintextPassword" [class.disabled-fab-icon]="!credential.plaintextPassword">
         <i class="fa fa-clone"></i>
       </div>
       <div class="edit-password" (click)="openEditModal(credential)">
@@ -39,7 +39,7 @@
           {{credential.username}}
         </span>
       </div>
-      <div class="card-content-plaintext-password clearfix" [class.slide-down]="credential.plaintextPassword">
+      <div class="card-content-plaintext-password clearfix plaintext-password" [class.slide-down]="credential.plaintextPassword">
         {{credential.plaintextPassword}}
       </div>
     </div>

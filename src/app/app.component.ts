@@ -48,9 +48,22 @@ export class AppComponent implements OnInit {
       this.cd.detectChanges();
     });
   }
-  copyPassword(event: Event) {
-    console.log("Copying");
-    document.execCommand("Copy", false, "This is the password");
+  copyPassword(event: Event, credentail: ServiceDetails) {
+    console.log("copy clipboard");
+    if (!credentail.plaintextPassword) return;
+    
+    const element = event.target as Element; // extract the target from event
+    const cardNode =
+      element.nodeName == "I"
+        ? element.parentElement.parentElement.parentElement
+        : element.parentElement.parentElement; //get the card node depending on if the element is I or it's parent DIV
+    const passwwordNode = cardNode.querySelector(".plaintext-password"); //select the password node
+
+    var range = document.createRange(); //using range you can select elements from the DOM
+    range.selectNode(passwwordNode);
+    window.getSelection().addRange(range); // add it to selection, so that the node gets selected
+    document.execCommand("Copy"); //copy command
+    window.getSelection().removeAllRanges(); //clear the selection
   }
   async savePassword(userDetails: ServiceDetails) {
     console.log(userDetails);
@@ -74,8 +87,11 @@ export class AppComponent implements OnInit {
   }
   async editPassword(userDetails: ServiceDetails[]) {
     let secret = await this.dbservice.getSecretKey();
-    userDetails[1].password = this.cryptoService.encrypt(userDetails[1].password, secret);
-    console.log("Editing ",userDetails);
+    userDetails[1].password = this.cryptoService.encrypt(
+      userDetails[1].password,
+      secret
+    );
+    console.log("Editing ", userDetails);
     this.dbservice.editPassword(userDetails[0], userDetails[1]).then(res => {
       console.log("Edit reponse", res);
       this.getCredentials();
