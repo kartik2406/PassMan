@@ -158,7 +158,7 @@ var AddPasswordModalComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"header header-fixed\">\n\n  <div class=\"\">\n    PassMan\n  </div>\n  <div class=\"\">\n    <button class=\"btn btn-accent change-icon\" style=\"width:85px\" (click)=\"openAddModal()\">\n      New\n      <i class=\"fa fa-pencil-square-o\"></i>\n      <i class=\"fa fa-pencil-square\"></i>\n    </button>\n  </div>\n\n</nav>\n<div class=\"container\">\n  <div *ngFor=\"let credential of credentials\" class=\"card\">\n    <div class=\"card-header\">\n    \n      <div class=\"title\">\n        {{credential.service}}\n      </div>\n\n      <div class=\"copy-password\" (click)=\"copyPassword(credential)\">\n        <i class=\"fa fa-clone\"></i>\n      </div>\n      <div class=\"edit-password\" (click)=\"openEditModal(credential)\">\n        <i class=\"fa fa-pencil\"></i>\n      </div>\n      <div class=\"card-close\" (click)=\"delete(credential)\">\n        <i class=\"fa fa-trash-o fa-lg\"></i>\n      </div>\n    </div>\n    <div class=\"content\">\n      <div>\n        <span class=\"pull-left\">\n          Username\n        </span>\n        <span class=\"pull-right\">\n          {{credential.username}}\n        </span>\n      </div>\n      <div class=\"card-content-plaintext-password clearfix\" [class.slide-down]=\"credential.plaintextPassword\">\n        {{credential.plaintextPassword}}\n      </div>\n    </div>\n    <div class=\"actions\">\n      <button class=\"btn btn-primary change-icon\" (click)=\"revealPassword(credential)\" [disabled]=\"credential.plaintextPassword\">\n        Reveal Password\n        <i class=\"fa fa-lock\"></i>\n        <i class=\"fa fa-unlock\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n<button class=\"fab-icon fab-icon-fixed mobile-only\" (click)=\"openAddModal()\">\n  <i class=\"fa fa-pencil-square fa-lg\"></i>\n</button>\n<app-add-password-modal (save)=\"savePassword($event)\" (edit)=\"editPassword($event)\"></app-add-password-modal>\n"
+module.exports = "<nav class=\"header header-fixed\">\n\n  <div class=\"\">\n    PassMan\n  </div>\n  <div class=\"\">\n    <button class=\"btn btn-accent change-icon\" style=\"width:85px\" (click)=\"openAddModal()\">\n      New\n      <i class=\"fa fa-pencil-square-o\"></i>\n      <i class=\"fa fa-pencil-square\"></i>\n    </button>\n  </div>\n\n</nav>\n<div class=\"container\">\n  <div *ngFor=\"let credential of credentials\" class=\"card\">\n    <div class=\"card-header\">\n\n      <div class=\"title\">\n        {{credential.service}}\n      </div>\n\n      <div class=\"\" (click)=\"copyPassword($event, credential)\" [class.copy-password]=\"credential.plaintextPassword\" [class.disabled-fab-icon]=\"!credential.plaintextPassword\">\n        <i class=\"fa fa-clone\"></i>\n      </div>\n      <div class=\"edit-password\" (click)=\"openEditModal(credential)\">\n        <i class=\"fa fa-pencil\"></i>\n      </div>\n      <div class=\"card-close\" (click)=\"delete(credential)\">\n        <i class=\"fa fa-trash-o fa-lg\"></i>\n      </div>\n    </div>\n    <div class=\"content\">\n      <div>\n        <span class=\"pull-left\">\n          Username\n        </span>\n        <span class=\"pull-right\">\n          {{credential.username}}\n        </span>\n      </div>\n      <div class=\"card-content-plaintext-password clearfix plaintext-password\" [class.slide-down]=\"credential.plaintextPassword\">\n        {{credential.plaintextPassword}}\n      </div>\n    </div>\n    <div class=\"actions\">\n      <button class=\"btn btn-primary change-icon\" (click)=\"revealPassword(credential)\" [disabled]=\"credential.plaintextPassword\">\n        Reveal Password\n        <i class=\"fa fa-lock\"></i>\n        <i class=\"fa fa-unlock\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n<button class=\"fab-icon fab-icon-fixed mobile-only\" (click)=\"openAddModal()\">\n  <i class=\"fa fa-pencil-square fa-lg\"></i>\n</button>\n<app-add-password-modal (save)=\"savePassword($event)\" (edit)=\"editPassword($event)\"></app-add-password-modal>\n"
 
 /***/ }),
 
@@ -284,9 +284,20 @@ var AppComponent = /** @class */ (function () {
             _this.cd.detectChanges();
         });
     };
-    AppComponent.prototype.copyPassword = function (event) {
-        console.log("Copying");
-        document.execCommand("Copy", false, "This is the password");
+    AppComponent.prototype.copyPassword = function (event, credentail) {
+        console.log("copy clipboard");
+        if (!credentail.plaintextPassword)
+            return;
+        var element = event.target; // extract the target from event
+        var cardNode = element.nodeName == "I"
+            ? element.parentElement.parentElement.parentElement
+            : element.parentElement.parentElement; //get the card node depending on if the element is I or it's parent DIV
+        var passwwordNode = cardNode.querySelector(".plaintext-password"); //select the password node
+        var range = document.createRange(); //using range you can select elements from the DOM
+        range.selectNode(passwwordNode);
+        window.getSelection().addRange(range); // add it to selection, so that the node gets selected
+        document.execCommand("Copy"); //copy command
+        window.getSelection().removeAllRanges(); //clear the selection
     };
     AppComponent.prototype.savePassword = function (userDetails) {
         return __awaiter(this, void 0, void 0, function () {

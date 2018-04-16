@@ -94,3 +94,16 @@
   box-shadow: none;
   transform: translateY(2px);
 }
+
+.disabled-fab-icon {
+  @include fab-icon-on-hover-base(grey, 0, 0.3s);
+  cursor: not-allowed;
+}
+
+.disabled-fab-icon:hover {
+  @include fab-icon-on-hover-state-hover(grey, 0, white);
+}
+
+.disabled-fab-icon:active {
+  @include fab-icon-on-hover-state-active();
+}
