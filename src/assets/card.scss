@@ -115,11 +115,11 @@
 
 /*initially the buton will be hidden*/
 
-.copy-password > .fa {
+.copy-icon > .fa {
   display: none;
 }
 
-.card:hover .copy-password .fa {
+.card:hover .copy-icon .fa {
   display: block;
 }
 
