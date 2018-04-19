@@ -3,20 +3,23 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
+
 import { IndexedDbService } from './services/indexed-db.service';
-import { AddPasswordModalComponent } from './add-password-modal/add-password-modal.component';
 import { CryptoService } from './services/crypto.service';
+
+import { RoutingModule, routingComponents } from './modules/routing/routing.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddPasswordModalComponent
+    routingComponents
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RoutingModule
   ],
   providers: [
     IndexedDbService,

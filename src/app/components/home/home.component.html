@@ -1,0 +1,58 @@
+<nav class="header header-fixed">
+
+  <div class="">
+    PassMan
+  </div>
+  <div class="">
+    <button class="btn btn-accent change-icon" style="width:85px" (click)="openAddModal()">
+      New
+      <i class="fa fa-pencil-square-o"></i>
+      <i class="fa fa-pencil-square"></i>
+    </button>
+  </div>
+
+</nav>
+<div class="container">
+  <div *ngFor="let credential of credentials" class="card">
+    <div class="card-header">
+
+      <div class="title">
+        {{credential.service}}
+      </div>
+
+      <div class="copy-icon" (click)="copyPassword($event, credential)" [class.copy-password]="credential.plaintextPassword" [class.disabled-fab-icon]="!credential.plaintextPassword">
+        <i class="fa fa-clone"></i>
+      </div>
+      <div class="edit-password" (click)="openEditModal(credential)">
+        <i class="fa fa-pencil"></i>
+      </div>
+      <div class="card-close" (click)="delete(credential)">
+        <i class="fa fa-trash-o fa-lg"></i>
+      </div>
+    </div>
+    <div class="content">
+      <div>
+        <span class="pull-left">
+          Username
+        </span>
+        <span class="pull-right">
+          {{credential.username}}
+        </span>
+      </div>
+      <div class="card-content-plaintext-password clearfix plaintext-password" [class.slide-down]="credential.plaintextPassword">
+        {{credential.plaintextPassword}}
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary change-icon" (click)="revealPassword(credential)" [disabled]="credential.plaintextPassword">
+        Reveal Password
+        <i class="fa fa-lock"></i>
+        <i class="fa fa-unlock"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<button class="fab-icon fab-icon-fixed mobile-only" (click)="openAddModal()">
+  <i class="fa fa-pencil-square fa-lg"></i>
+</button>
+<app-add-password-modal (save)="savePassword($event)" (edit)="editPassword($event)"></app-add-password-modal>

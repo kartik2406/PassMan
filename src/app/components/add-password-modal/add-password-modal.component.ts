@@ -7,7 +7,7 @@ import {
   ChangeDetectorRef
 } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { ServiceDetails } from "../models/service-details";
+import { ServiceDetails } from "../../models/service-details";
 @Component({
   selector: "app-add-password-modal",
   templateUrl: "./add-password-modal.component.html",
