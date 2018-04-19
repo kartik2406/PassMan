@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import * as zango from "zangodb";
 import { ServiceDetails } from "../models/service-details";
+import { KeyPair } from "../models/key-pair";
 @Injectable()
 export class IndexedDbService {
   private db: zango.Db;
@@ -23,7 +24,7 @@ export class IndexedDbService {
   addPassword(
     service: string,
     username: string,
-    password: string
+    password: ArrayBuffer
   ): Promise<any> {
     return this.passwordsCollection.insert({
       service,
@@ -37,16 +38,20 @@ export class IndexedDbService {
   editPassword(credetials: ServiceDetails, newCredentials: ServiceDetails) {
     return this.passwordsCollection.update(
       { _id: credetials._id },
-      newCredentials
+      {
+        service: newCredentials.service,
+        username: newCredentials.username,
+        password: newCredentials.password
+      }
     );
   }
   deletePassword(credetials: ServiceDetails) {
     return this.passwordsCollection.remove(credetials);
   }
   /* Key releated code */
-  async getSecretKey(): Promise<string> {
-    let key = await this.keyCollection.findOne({});
-    return key ? key["secret"] : key;
+  async getSecretKey() {
+    let key: KeyPair = <KeyPair>await this.keyCollection.findOne({ "_id": 1 });
+    return key ? key['secret'] : {};
   }
   addSecretKey(secret: string): Promise<any> {
     return this.keyCollection.insert({

@@ -5,6 +5,7 @@ import { CryptoService } from "../../services/crypto.service";
 import { ServiceDetails } from "../../models/service-details";
 import * as Rx from "rxjs";
 import { Observable } from "rxjs/Observable";
+import * as encoder from 'text-encoding';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit {
     private cryptoService: CryptoService,
     private cd: ChangeDetectorRef
   ) { }
-  ngOnInit() {
+  async ngOnInit() {
     this.getCredentials();
   }
   openAddModal() {
@@ -33,12 +34,12 @@ export class HomeComponent implements OnInit {
   }
   async openEditModal(credentails: ServiceDetails) {
     let secret = await this.dbservice.getSecretKey();
-    let password = this.cryptoService.decrypt(credentails.password, secret);
+    let password = await  this.cryptoService.decrypt(credentails.password, secret);
     this.addComponent.show({
       _id: credentails._id,
       service: credentails.service,
       username: credentails.username,
-      password
+      plaintextPassword: password
     });
   }
   getCredentials() {
@@ -73,24 +74,28 @@ export class HomeComponent implements OnInit {
       secret = checkSecret;
       console.log(secret);
     } else {
-      secret = this.cryptoService.generateSecretKey();
+      secret = await this.cryptoService.generateKeys();
       this.dbservice.addSecretKey(secret).then(res => console.log("Key added"));
     }
+    let encData = await this.cryptoService.encrypt(userDetails.plaintextPassword, secret);
+    console.log('encrypted data', encData);
+    
     this.dbservice
       .addPassword(
         userDetails.service,
         userDetails.username,
-        this.cryptoService.encrypt(userDetails.password, secret)
+        encData
       )
       .then(res => console.log("saved"));
     this.getCredentials();
   }
   async editPassword(userDetails: ServiceDetails[]) {
     let secret = await this.dbservice.getSecretKey();
-    userDetails[1].password = this.cryptoService.encrypt(
-      userDetails[1].password,
+    userDetails[1].password = await this.cryptoService.encrypt(
+      userDetails[1].plaintextPassword,
       secret
     );
+    userDetails[1].plaintextPassword = null;
     console.log("Editing ", userDetails);
     this.dbservice.editPassword(userDetails[0], userDetails[1]).then(res => {
       console.log("Edit reponse", res);
@@ -101,7 +106,9 @@ export class HomeComponent implements OnInit {
   async revealPassword(credentails: ServiceDetails) {
     let secret = await this.dbservice.getSecretKey();
     console.log("secret key", secret);
-    let palintextPassword = this.cryptoService.decrypt(
+    console.log('Arraypass', credentails.password);
+    
+    let palintextPassword = await this.cryptoService.decrypt(
       credentails.password,
       secret
     );

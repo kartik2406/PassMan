@@ -37,7 +37,7 @@ export class AddPasswordModalComponent implements OnInit {
         Validators.required
       ],
       password: [
-        this.credential ? this.credential.password : "",
+        this.credential ? this.credential.plaintextPassword : "",
         Validators.required
       ]
     });
@@ -68,7 +68,7 @@ export class AddPasswordModalComponent implements OnInit {
     this.save.emit({
       service: this.addPasswordForm.controls.service.value,
       username: this.addPasswordForm.controls.username.value,
-      password: this.addPasswordForm.controls.password.value
+      plaintextPassword: this.addPasswordForm.controls.password.value
     });
     this.close();
   }
@@ -78,7 +78,7 @@ export class AddPasswordModalComponent implements OnInit {
     emitData.push({
       service: this.addPasswordForm.controls.service.value,
       username: this.addPasswordForm.controls.username.value,
-      password: this.addPasswordForm.controls.password.value
+      plaintextPassword: this.addPasswordForm.controls.password.value
     });
     this.edit.emit(emitData);
     this.close();
