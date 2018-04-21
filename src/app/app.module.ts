@@ -8,6 +8,7 @@ import { IndexedDbService } from './services/indexed-db.service';
 import { CryptoService } from './services/crypto.service';
 
 import { RoutingModule, routingComponents } from './modules/routing/routing.module';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { RoutingModule, routingComponents } from './modules/routing/routing.modu
   ],
   providers: [
     IndexedDbService,
-    CryptoService
+    CryptoService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

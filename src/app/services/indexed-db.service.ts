@@ -7,15 +7,18 @@ export class IndexedDbService {
   private db: zango.Db;
   private passwordsCollection: zango.Collection;
   private keyCollection: zango.Collection;
-
+  private authCollection: zango.Collection;
   constructor() {
     this.db = new zango.Db("mydb", 2, {
       passwords: ["service"],
-      key: ["secret"]
+      key: ["secret"],
+      auth: ["hash"]
     });
     this.passwordsCollection = this.db.collection("passwords");
 
     this.keyCollection = this.db.collection("key");
+
+    this.authCollection = this.db.collection("auth");
     this.getAll().then();
   }
   getAll(): Promise<any> {
@@ -50,12 +53,23 @@ export class IndexedDbService {
   }
   /* Key releated code */
   async getSecretKey() {
-    let key: KeyPair = <KeyPair>await this.keyCollection.findOne({ "_id": 1 });
-    return key ? key['secret'] : null;
+    let key: KeyPair = <KeyPair>await this.keyCollection.findOne({ _id: 1 });
+    return key ? key["secret"] : null;
   }
   addSecretKey(secret: string): Promise<any> {
     return this.keyCollection.insert({
       secret
+    });
+  }
+
+  async getHash() {
+    let authInfo = await this.authCollection.findOne({ _id: 1 });
+
+    return authInfo ? authInfo["hash"] : null;
+  }
+  addHash(hash: string): Promise<any> {
+    return this.authCollection.insert({
+      hash
     });
   }
 }

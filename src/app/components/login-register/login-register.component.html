@@ -1,3 +1,23 @@
-<p>
-  login-register works!
-</p>
+<div class="container">
+  <div *ngIf="displayForm" class="card">
+    <div class="card-header">
+
+      <div class="title">
+        {{ login ? "Login to " : "Register for" }} CryptoPass
+      </div>
+    </div>
+    <div class="content">
+      <div class="form-group">
+        <input type="text pull-right" name="password" placeholder="Enter app passsword">
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary change-icon" (click)="loginRegister()">
+        {{ login ? "Login" : "Register"}}
+        <i class="fa fa-lock"></i>
+        <i class="fa fa-unlock"></i>
+      </button>
+    </div>
+
+  </div>
+</div>

@@ -49,4 +49,9 @@ export class CryptoService {
       ["encrypt", "decrypt"]
     )
   }
+ async generateHash(value: string){
+    let arrayHash = await window.crypto.subtle.digest("SHA-256", new encoding.TextEncoder().encode(value));
+
+    return new encoding.TextDecoder().decode(arrayHash);
+  }
 }

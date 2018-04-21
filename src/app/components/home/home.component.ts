@@ -62,6 +62,7 @@ export class HomeComponent implements OnInit {
 
     var range = document.createRange(); //using range you can select elements from the DOM
     range.selectNode(passwwordNode);
+    window.getSelection().removeAllRanges();
     window.getSelection().addRange(range); // add it to selection, so that the node gets selected
     document.execCommand("Copy"); //copy command
     window.getSelection().removeAllRanges(); //clear the selection
@@ -86,7 +87,7 @@ export class HomeComponent implements OnInit {
         userDetails.username,
         encData
       )
-      .then(res => console.log("saved"));
+      .then(res => console.log("saved", res));
     this.getCredentials();
   }
   async editPassword(userDetails: ServiceDetails[]) {

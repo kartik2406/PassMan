@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
-    "build:gh": "ng build --env=prod --base-href 'https://kartik2406.github.io/PassMan/'",
+    "build:gh": "ng build --env=prod --base-href 'https://kartik2406.github.io/crypto-pass/'",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
