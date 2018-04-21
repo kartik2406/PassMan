@@ -51,7 +51,7 @@ export class IndexedDbService {
   /* Key releated code */
   async getSecretKey() {
     let key: KeyPair = <KeyPair>await this.keyCollection.findOne({ "_id": 1 });
-    return key ? key['secret'] : {};
+    return key ? key['secret'] : null;
   }
   addSecretKey(secret: string): Promise<any> {
     return this.keyCollection.insert({

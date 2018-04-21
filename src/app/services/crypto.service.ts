@@ -7,7 +7,7 @@ export class CryptoService {
   dec = new encoding.TextDecoder();
   constructor() { }
   encrypt(password: string, keys: KeyPair) {
-    console.log(password);
+    console.log(password, keys);
     
     console.log(new encoding.TextEncoder().encode(password));
     
