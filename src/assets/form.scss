@@ -1,18 +1,48 @@
 .form-group {
-    width: 100%;
-    display: grid;
-  }
-  
-  .form-group input {
-    border-radius: 50px;
-    border: none;
-    background: #f1f1f1;
-    padding: 12px;
-    transition: 0.4s;
-  }
-  
-  .form-group input:focus {
-    background-color: #ddd;
-    outline: none;
-    box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.2);
-  }
+  width: 100%;
+  display: grid;
+}
+
+.form-group input {
+  border-radius: 50px;
+  border: none;
+  background: #f1f1f1;
+  padding: 12px;
+  transition: 0.4s;
+}
+
+.form-group input:focus {
+  background-color: #ddd;
+  outline: none;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Form inputs with icons*/
+.form-icon {
+  display: grid;
+  grid-template-columns: 1fr 20px;
+  border-radius: 50px;
+  border: none;
+  background: #f1f1f1;
+  padding: 12px;
+  transition: 0.4s;
+}
+.form-icon:focus-within input {
+  background-color: #ddd;
+}
+.form-icon:focus-within {
+  background-color: #ddd;
+  outline: none;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.2);
+}
+
+.form-icon input {
+  border: none;
+  background: #f1f1f1;
+  transition: 0.4s;
+}
+
+.form-icon i {
+  transition: 0.5s;
+  color: $color-primary;
+}

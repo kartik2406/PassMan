@@ -9,6 +9,8 @@ import { CryptoService } from './services/crypto.service';
 
 import { RoutingModule, routingComponents } from './modules/routing/routing.module';
 import { AuthService } from './services/auth.service';
+import { AuthGuardService } from './guards/auth-guard.service';
+import { LoggedinRedirectService } from './guards/loggedin-redirect.service';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { AuthService } from './services/auth.service';
   providers: [
     IndexedDbService,
     CryptoService,
-    AuthService
+    AuthService,
+    AuthGuardService,
+    LoggedinRedirectService
   ],
   bootstrap: [AppComponent]
 })

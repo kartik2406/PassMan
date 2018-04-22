@@ -9,7 +9,7 @@ export class IndexedDbService {
   private keyCollection: zango.Collection;
   private authCollection: zango.Collection;
   constructor() {
-    this.db = new zango.Db("mydb", 2, {
+    this.db = new zango.Db("crypto-pass", 2, {
       passwords: ["service"],
       key: ["secret"],
       auth: ["hash"]
@@ -56,7 +56,7 @@ export class IndexedDbService {
     let key: KeyPair = <KeyPair>await this.keyCollection.findOne({ _id: 1 });
     return key ? key["secret"] : null;
   }
-  addSecretKey(secret: string): Promise<any> {
+  addSecretKey(secret: any): Promise<any> {
     return this.keyCollection.insert({
       secret
     });

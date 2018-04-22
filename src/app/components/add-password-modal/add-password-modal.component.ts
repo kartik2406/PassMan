@@ -21,7 +21,7 @@ export class AddPasswordModalComponent implements OnInit {
   @Input() credential: ServiceDetails;
   private addPasswordForm: FormGroup;
   constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) {}
-
+  showPassword: boolean = false;
   ngOnInit() {
     this.creatForm();
   }
@@ -63,6 +63,7 @@ export class AddPasswordModalComponent implements OnInit {
     body.style.overflow = "scroll";
     this.addPasswordForm.reset();
     this.credential = null;
+    this.showPassword = false;
   }
   emitSave() {
     this.save.emit({
@@ -82,5 +83,8 @@ export class AddPasswordModalComponent implements OnInit {
     });
     this.edit.emit(emitData);
     this.close();
+  }
+  togglePasswordVisibility(){
+    this.showPassword = !this.showPassword;
   }
 }

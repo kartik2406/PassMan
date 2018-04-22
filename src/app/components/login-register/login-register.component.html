@@ -7,8 +7,9 @@
       </div>
     </div>
     <div class="content">
-      <div class="form-group">
-        <input type="text pull-right" name="password" placeholder="Enter app passsword">
+      <div class="form-icon" tabindex="0">
+        <input type="{{ showPassword ? 'text' : 'password'}}" name="password" placeholder="Enter app passsword" [(ngModel)]="password" (keydown)="checkEnter($event)">
+        <i class="fa" [class.fa-eye]="!showPassword"  [class.fa-eye-slash]="showPassword" (click)="togglePasswordVisibility()"></i>
       </div>
     </div>
     <div class="actions">

@@ -1,9 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "https://fonts.googleapis.com/css?family=Pacifico";
-@import "https://fonts.googleapis.com/css?family=Volkhov";
-@import "https://fonts.googleapis.com/css?family=Merienda+One";
-@import "https://fonts.googleapis.com/css?family=Sofia";
+@import url("https://fonts.googleapis.com/css?family=Pacifico");
+@import url("https://fonts.googleapis.com/css?family=Volkhov");
+@import url("https://fonts.googleapis.com/css?family=Merienda+One");
+// @import url("https://fonts.googleapis.com/css?family=Sofia");
+// @import url('https://fonts.googleapis.com/css?family=Philosopher');
+@import url('https://fonts.googleapis.com/css?family=Merienda');
+@import url('https://fonts.googleapis.com/css?family=Bad+Script');
 @import "./assets/variables.scss";
 @import "./assets/fonts.scss";
 @import "./assets/colors.scss";
@@ -15,3 +18,4 @@
 @import "./assets/card.scss";
 @import "./assets/mobile.scss";
 @import "./assets/animations.scss";
+@import "./assets/placeholder.scss";
