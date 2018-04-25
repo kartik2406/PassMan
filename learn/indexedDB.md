@@ -38,7 +38,7 @@ request.onsuccess = function(event) {
   // Yay! Process the results.
 };
 ```
-onscuccess() will be triggered when the value of DOM event is success, if the value of the DOM event is error onerror() wil be triggered.
+**onsuccess()** will be triggered when the value of DOM event is success, if the value of the DOM event is error **onerror()** wil be triggered.
 
 ### References
 1. https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
