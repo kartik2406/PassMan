@@ -1,18 +1,16 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from "@angular/core";
 import { IndexedDbService } from "../../services/indexed-db.service";
 import { AddPasswordModalComponent } from "../add-password-modal/add-password-modal.component";
 import { CryptoService } from "../../services/crypto.service";
 import { ServiceDetails } from "../../models/service-details";
 import * as Rx from "rxjs";
 import { Observable } from "rxjs/Observable";
-import * as encoder from 'text-encoding';
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"]
 })
 export class HomeComponent implements OnInit {
-
   serviceName: string;
   userName: string;
   password: string;
@@ -22,7 +20,7 @@ export class HomeComponent implements OnInit {
     private dbservice: IndexedDbService,
     private cryptoService: CryptoService,
     private cd: ChangeDetectorRef
-  ) { }
+  ) {}
   async ngOnInit() {
     this.getCredentials();
   }
@@ -33,8 +31,11 @@ export class HomeComponent implements OnInit {
     this.addComponent.show();
   }
   async openEditModal(credentails: ServiceDetails) {
-    let secret = await this.dbservice.getSecretKey();
-    let password = await  this.cryptoService.decrypt(credentails.password, secret);
+    let secret = this.cryptoService.getSecretKey();
+    let password = await this.cryptoService.decrypt(
+      credentails.password,
+      secret
+    );
     this.addComponent.show({
       _id: credentails._id,
       service: credentails.service,
@@ -45,12 +46,10 @@ export class HomeComponent implements OnInit {
   getCredentials() {
     this.dbservice.getPasswords().then(res => {
       this.credentials = res;
-      console.log("Password list", this.credentials);
       this.cd.detectChanges();
     });
   }
   copyPassword(event: Event, credentail: ServiceDetails) {
-    console.log("copy clipboard");
     if (!credentail.plaintextPassword) return;
 
     const element = event.target as Element; // extract the target from event
@@ -68,56 +67,40 @@ export class HomeComponent implements OnInit {
     window.getSelection().removeAllRanges(); //clear the selection
   }
   async savePassword(userDetails: ServiceDetails) {
-    console.log(userDetails);
-    let checkSecret = await this.dbservice.getSecretKey();
-    let secret;
-    if (checkSecret) {
-      secret = checkSecret;
-      console.log(secret);
-    } else {
-      secret = await this.cryptoService.generateKeys();
-      this.dbservice.addSecretKey(secret).then(res => console.log("Key added"));
-    }
-    let encData = await this.cryptoService.encrypt(userDetails.plaintextPassword, secret);
-    console.log('encrypted data', encData);
-    
+    let secret = this.cryptoService.getSecretKey();
+  
+    let encData = await this.cryptoService.encrypt(
+      userDetails.plaintextPassword,
+      secret
+    );
+
     this.dbservice
-      .addPassword(
-        userDetails.service,
-        userDetails.username,
-        encData
-      )
+      .addPassword(userDetails.service, userDetails.username, encData)
       .then(res => console.log("saved", res));
     this.getCredentials();
   }
   async editPassword(userDetails: ServiceDetails[]) {
-    let secret = await this.dbservice.getSecretKey();
+    let secret = await this.cryptoService.getSecretKey();
     userDetails[1].password = await this.cryptoService.encrypt(
       userDetails[1].plaintextPassword,
       secret
     );
     userDetails[1].plaintextPassword = null;
-    console.log("Editing ", userDetails);
     this.dbservice.editPassword(userDetails[0], userDetails[1]).then(res => {
-      console.log("Edit reponse", res);
       this.getCredentials();
       this.cd.detectChanges();
     });
   }
   async revealPassword(credentails: ServiceDetails) {
-    let secret = await this.dbservice.getSecretKey();
-    console.log("secret key", secret);
-    console.log('Arraypass', credentails.password);
-    
+    let secret =  this.cryptoService.getSecretKey();
+  
     let palintextPassword = await this.cryptoService.decrypt(
       credentails.password,
       secret
     );
-    console.log("Your password is ", palintextPassword);
     credentails.plaintextPassword = palintextPassword;
     this.cd.detectChanges();
     Rx.Observable.timer(5000).subscribe(res => {
-      console.log("time elapsed");
       credentails.plaintextPassword = "";
       this.cd.detectChanges();
     });
@@ -125,10 +108,8 @@ export class HomeComponent implements OnInit {
 
   delete(credentail: ServiceDetails) {
     this.dbservice.deletePassword(credentail).then(res => {
-      console.log("Delete res", res);
       this.getCredentials();
       this.cd.detectChanges();
     });
   }
-
 }

@@ -1,23 +1,18 @@
 import { Injectable } from "@angular/core";
 import * as zango from "zangodb";
 import { ServiceDetails } from "../models/service-details";
-import { KeyPair } from "../models/key-pair";
+
 @Injectable()
 export class IndexedDbService {
   private db: zango.Db;
   private passwordsCollection: zango.Collection;
-  private keyCollection: zango.Collection;
   private authCollection: zango.Collection;
   constructor() {
     this.db = new zango.Db("crypto-pass", 2, {
       passwords: ["service"],
-      key: ["secret"],
       auth: ["hash"]
     });
     this.passwordsCollection = this.db.collection("passwords");
-
-    this.keyCollection = this.db.collection("key");
-
     this.authCollection = this.db.collection("auth");
     this.getAll().then();
   }
@@ -51,17 +46,7 @@ export class IndexedDbService {
   deletePassword(credetials: ServiceDetails) {
     return this.passwordsCollection.remove(credetials);
   }
-  /* Key releated code */
-  async getSecretKey() {
-    let key: KeyPair = <KeyPair>await this.keyCollection.findOne({ _id: 1 });
-    return key ? key["secret"] : null;
-  }
-  addSecretKey(secret: any): Promise<any> {
-    return this.keyCollection.insert({
-      secret
-    });
-  }
-
+ 
   async getHash() {
     let authInfo = await this.authCollection.findOne({ _id: 1 });
 

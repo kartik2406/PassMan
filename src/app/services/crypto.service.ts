@@ -1,57 +1,79 @@
 import { Injectable } from "@angular/core";
 import * as encoding from "text-encoding";
-import { KeyPair } from "../models/key-pair";
 
 @Injectable()
 export class CryptoService {
   dec = new encoding.TextDecoder();
-  constructor() { }
-  encrypt(password: string, keys: KeyPair) {
-    console.log(password, keys);
-    
-    console.log(new encoding.TextEncoder().encode(password));
-    
+  key: CryptoKey;
+
+  constructor() {}
+  encrypt(password: string, key: CryptoKey) {
+
     return window.crypto.subtle.encrypt(
       {
-        name: "RSA-OAEP",
-        //label: Uint8Array([...]) //optional
+        name: "AES-CBC",
+        iv: new Uint8Array(16)
       },
-      keys.publicKey, //from generateKey or importKey above
-      new encoding.TextEncoder().encode(password) //ArrayBuffer of data you want to encrypt
-    )
+      key,
+      new encoding.TextEncoder().encode(password)
+    );
   }
-  decrypt(data: ArrayBuffer, keys: KeyPair): Promise<string> {
+  decrypt(data: ArrayBuffer, key: CryptoKey): Promise<string> {
     return new Promise(async (resolve, reject) => {
       try {
-        let decodedData: string = this.dec.decode(await window.crypto.subtle.decrypt(
-          {
-            name: "RSA-OAEP",
-            //label: Uint8Array([...]) //optional
-          },
-          keys.privateKey, //from generateKey or importKey above
-          data //ArrayBuffer of the data
-        ));
-        resolve(decodedData)
+        let decodedData: string = this.dec.decode(
+          await window.crypto.subtle.decrypt(
+            {
+              name: "AES-CBC",
+              iv: new Uint8Array(16)
+            },
+            key, 
+            data
+          )
+        );
+        resolve(decodedData);
       } catch (err) {
+        console.log(err);
         resolve(err);
       }
-    })
+    });
   }
-  generateKeys() {
-    return window.crypto.subtle.generateKey(
-      {
-        name: "RSA-OAEP",
-        modulusLength: 2048, //can be 1024, 2048, or 4096
-        publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
-        hash: { name: "SHA-256" }, //can be "SHA-1", "SHA-256", "SHA-384", or "SHA-512"
-      },
-      false,
-      ["encrypt", "decrypt"]
-    )
-  }
- async generateHash(value: string){
-    let arrayHash = await window.crypto.subtle.digest("SHA-256", new encoding.TextEncoder().encode(value));
+
+  async generateHash(value: string) {
+    let arrayHash = await window.crypto.subtle.digest(
+      "SHA-256",
+      new encoding.TextEncoder().encode(value)
+    );
 
     return new encoding.TextDecoder().decode(arrayHash);
+  }
+
+  async generateKey(password: string) {
+    let passKey = new encoding.TextEncoder().encode(password); //ArrayBuffer of data you want to encrypt
+    let key = await window.crypto.subtle.importKey(
+      "raw",
+      passKey,
+      "PBKDF2",
+      false,
+      ["deriveBits", "deriveKey"]
+    );
+    let cKey = await window.crypto.subtle.deriveKey(
+      {
+        name: "PBKDF2",
+        salt: new encoding.TextEncoder().encode("abcdc"),
+        iterations: 100,
+        hash: "SHA-256"
+      },
+      key,
+      { name: "AES-CBC", length: 256 },
+      false,
+      ["encrypt", "decrypt"]
+    );
+    this.key = cKey;
+    return cKey;
+  }
+  
+  getSecretKey(): CryptoKey {
+    return this.key;
   }
 }

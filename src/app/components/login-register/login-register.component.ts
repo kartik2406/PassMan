@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
+import { CryptoService } from "../../services/crypto.service";
 
 @Component({
   selector: "app-login-register",
@@ -12,14 +13,17 @@ export class LoginRegisterComponent implements OnInit {
   login: boolean;
   password: string;
   showPassword: boolean = false;
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+     private router: Router,
+     private crypto: CryptoService
+    ) {}
 
   ngOnInit() {
     this.authService.isRegistered.subscribe(val => {});
     this.authService
       .checkIfRegisterd()
       .then(val => {
-        console.log(val);
         this.login = val ? true : false;
         this.displayForm = true;
       })
@@ -32,7 +36,6 @@ export class LoginRegisterComponent implements OnInit {
   loginRegister() {
     if (this.login) {
       this.authService.login(this.password).then(res => {
-        console.log(res);
         this.router.navigateByUrl("/home");
       }).catch(err => {
         console.log(err);
@@ -40,24 +43,20 @@ export class LoginRegisterComponent implements OnInit {
       });
     } else {
       this.authService.register(this.password).then(res => {
-        console.log("Logged in successfully!");
         this.login = true;
         this.loginRegister();
         //Todo: Popup
-       
       });
     }
+  
   }
   checkEnter(event: KeyboardEvent){
     if(event.keyCode == 13){
-      //console.log('enter clicked');
       this.loginRegister();
     }
   }
   togglePasswordVisibility(){
-    console.log('toggl');
     this.showPassword = !this.showPassword;
-    console.log(this.showPassword);
     
   }
 }
