@@ -285,7 +285,7 @@ var AddPasswordModalComponent = /** @class */ (function () {
 /***/ "../../../../../src/app/components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"header header-fixed\">\n\n  <div class=\"\">\n    CryptoPass\n  </div>\n  <div class=\"\">\n    <button class=\"btn btn-accent change-icon\" style=\"width:85px\" (click)=\"openAddModal()\">\n      New\n      <i class=\"fa fa-pencil-square-o\"></i>\n      <i class=\"fa fa-pencil-square\"></i>\n    </button>\n  </div>\n\n</nav>\n<div class=\"container\">\n  <div *ngFor=\"let credential of credentials\" class=\"card\">\n    <div class=\"card-header\">\n\n      <div class=\"title\">\n        {{credential.service}}\n      </div>\n\n      <div class=\"copy-icon\" (click)=\"copyPassword($event, credential)\" [class.copy-password]=\"credential.plaintextPassword\" [class.disabled-fab-icon]=\"!credential.plaintextPassword\">\n        <i class=\"fa fa-clone\"></i>\n      </div>\n      <div class=\"edit-password\" (click)=\"openEditModal(credential)\">\n        <i class=\"fa fa-pencil\"></i>\n      </div>\n      <div class=\"card-close\" (click)=\"delete(credential)\">\n        <i class=\"fa fa-trash-o fa-lg\"></i>\n      </div>\n    </div>\n    <div class=\"content\">\n      <div>\n        <span class=\"pull-left\">\n          Username\n        </span>\n        <span class=\"pull-right\">\n          {{credential.username}}\n        </span>\n      </div>\n      <div class=\"card-content-plaintext-password clearfix plaintext-password\" [class.slide-down]=\"credential.plaintextPassword\">\n        {{credential.plaintextPassword}}\n      </div>\n    </div>\n    <div class=\"actions\">\n      <button class=\"btn btn-primary change-icon\" (click)=\"revealPassword(credential)\" [disabled]=\"credential.plaintextPassword\">\n        Reveal Password\n        <i class=\"fa fa-lock\"></i>\n        <i class=\"fa fa-unlock\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n<button class=\"fab-icon fab-icon-fixed mobile-only\" (click)=\"openAddModal()\">\n  <i class=\"fa fa-pencil-square fa-lg\"></i>\n</button>\n<app-add-password-modal (save)=\"savePassword($event)\" (edit)=\"editPassword($event)\"></app-add-password-modal>"
+module.exports = "<nav class=\"header header-fixed\">\n\n  <div class=\"\">\n    CryptoPass\n  </div>\n  <div class=\"\">\n    <button class=\"btn btn-accent change-icon\" style=\"width:90px\" (click)=\"openAddModal()\">\n      New\n      <i class=\"fa fa-pencil-square-o\"></i>\n      <i class=\"fa fa-pencil-square\"></i>\n    </button>\n  </div>\n\n</nav>\n<div class=\"container\">\n  <div *ngFor=\"let credential of credentials\" class=\"card\">\n    <div class=\"card-header\">\n\n      <div class=\"title\">\n        {{credential.service}}\n      </div>\n\n      <div class=\"copy-icon\" (click)=\"copyPassword($event, credential)\" [class.copy-password]=\"credential.plaintextPassword\" [class.disabled-fab-icon]=\"!credential.plaintextPassword\">\n        <i class=\"fa fa-clone\"></i>\n      </div>\n      <div class=\"edit-password\" (click)=\"openEditModal(credential)\">\n        <i class=\"fa fa-pencil\"></i>\n      </div>\n      <div class=\"card-close\" (click)=\"delete(credential)\">\n        <i class=\"fa fa-trash-o fa-lg\"></i>\n      </div>\n    </div>\n    <div class=\"content\">\n      <div>\n        <span class=\"pull-left\">\n          Username\n        </span>\n        <span class=\"pull-right\">\n          {{credential.username}}\n        </span>\n      </div>\n      <div class=\"card-content-plaintext-password clearfix plaintext-password\" [class.slide-down]=\"credential.plaintextPassword\">\n        {{credential.plaintextPassword}}\n      </div>\n    </div>\n    <div class=\"actions\">\n      <button class=\"btn btn-primary change-icon\" (click)=\"revealPassword(credential)\" [disabled]=\"credential.plaintextPassword\">\n        Reveal Password\n        <i class=\"fa fa-lock\"></i>\n        <i class=\"fa fa-unlock\"></i>\n      </button>\n    </div>\n  </div>\n</div>\n<button class=\"fab-icon fab-icon-fixed mobile-only\" (click)=\"openAddModal()\">\n  <i class=\"fa fa-pencil-square fa-lg\"></i>\n</button>\n<app-add-password-modal (save)=\"savePassword($event)\" (edit)=\"editPassword($event)\"></app-add-password-modal>"
 
 /***/ }),
 
@@ -392,11 +392,10 @@ var HomeComponent = /** @class */ (function () {
             var secret, password;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.dbservice.getSecretKey()];
-                    case 1:
-                        secret = _a.sent();
+                    case 0:
+                        secret = this.cryptoService.getSecretKey();
                         return [4 /*yield*/, this.cryptoService.decrypt(credentails.password, secret)];
-                    case 2:
+                    case 1:
                         password = _a.sent();
                         this.addComponent.show({
                             _id: credentails._id,
@@ -413,12 +412,10 @@ var HomeComponent = /** @class */ (function () {
         var _this = this;
         this.dbservice.getPasswords().then(function (res) {
             _this.credentials = res;
-            console.log("Password list", _this.credentials);
             _this.cd.detectChanges();
         });
     };
     HomeComponent.prototype.copyPassword = function (event, credentail) {
-        console.log("copy clipboard");
         if (!credentail.plaintextPassword)
             return;
         var element = event.target; // extract the target from event
@@ -435,27 +432,14 @@ var HomeComponent = /** @class */ (function () {
     };
     HomeComponent.prototype.savePassword = function (userDetails) {
         return __awaiter(this, void 0, void 0, function () {
-            var checkSecret, secret, encData;
+            var secret, encData;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log(userDetails);
-                        return [4 /*yield*/, this.dbservice.getSecretKey()];
+                        secret = this.cryptoService.getSecretKey();
+                        return [4 /*yield*/, this.cryptoService.encrypt(userDetails.plaintextPassword, secret)];
                     case 1:
-                        checkSecret = _a.sent();
-                        if (!checkSecret) return [3 /*break*/, 2];
-                        secret = checkSecret;
-                        console.log(secret);
-                        return [3 /*break*/, 4];
-                    case 2: return [4 /*yield*/, this.cryptoService.generateKeys()];
-                    case 3:
-                        secret = _a.sent();
-                        this.dbservice.addSecretKey(secret).then(function (res) { return console.log("Key added"); });
-                        _a.label = 4;
-                    case 4: return [4 /*yield*/, this.cryptoService.encrypt(userDetails.plaintextPassword, secret)];
-                    case 5:
                         encData = _a.sent();
-                        console.log('encrypted data', encData);
                         this.dbservice
                             .addPassword(userDetails.service, userDetails.username, encData)
                             .then(function (res) { return console.log("saved", res); });
@@ -471,7 +455,7 @@ var HomeComponent = /** @class */ (function () {
             var secret, _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, this.dbservice.getSecretKey()];
+                    case 0: return [4 /*yield*/, this.cryptoService.getSecretKey()];
                     case 1:
                         secret = _b.sent();
                         _a = userDetails[1];
@@ -479,9 +463,7 @@ var HomeComponent = /** @class */ (function () {
                     case 2:
                         _a.password = _b.sent();
                         userDetails[1].plaintextPassword = null;
-                        console.log("Editing ", userDetails);
                         this.dbservice.editPassword(userDetails[0], userDetails[1]).then(function (res) {
-                            console.log("Edit reponse", res);
                             _this.getCredentials();
                             _this.cd.detectChanges();
                         });
@@ -496,19 +478,14 @@ var HomeComponent = /** @class */ (function () {
             var secret, palintextPassword;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.dbservice.getSecretKey()];
-                    case 1:
-                        secret = _a.sent();
-                        console.log("secret key", secret);
-                        console.log('Arraypass', credentails.password);
+                    case 0:
+                        secret = this.cryptoService.getSecretKey();
                         return [4 /*yield*/, this.cryptoService.decrypt(credentails.password, secret)];
-                    case 2:
+                    case 1:
                         palintextPassword = _a.sent();
-                        console.log("Your password is ", palintextPassword);
                         credentails.plaintextPassword = palintextPassword;
                         this.cd.detectChanges();
                         __WEBPACK_IMPORTED_MODULE_4_rxjs__["Observable"].timer(5000).subscribe(function (res) {
-                            console.log("time elapsed");
                             credentails.plaintextPassword = "";
                             _this.cd.detectChanges();
                         });
@@ -520,7 +497,6 @@ var HomeComponent = /** @class */ (function () {
     HomeComponent.prototype.delete = function (credentail) {
         var _this = this;
         this.dbservice.deletePassword(credentail).then(function (res) {
-            console.log("Delete res", res);
             _this.getCredentials();
             _this.cd.detectChanges();
         });
@@ -531,7 +507,7 @@ var HomeComponent = /** @class */ (function () {
     ], HomeComponent.prototype, "addComponent", void 0);
     HomeComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'app-home',
+            selector: "app-home",
             template: __webpack_require__("../../../../../src/app/components/home/home.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/home/home.component.scss")]
         }),
@@ -579,6 +555,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__("../../../../../src/app/services/auth.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_crypto_service__ = __webpack_require__("../../../../../src/app/services/crypto.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -591,10 +568,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var LoginRegisterComponent = /** @class */ (function () {
-    function LoginRegisterComponent(authService, router) {
+    function LoginRegisterComponent(authService, router, crypto) {
         this.authService = authService;
         this.router = router;
+        this.crypto = crypto;
         this.showPassword = false;
     }
     LoginRegisterComponent.prototype.ngOnInit = function () {
@@ -603,7 +582,6 @@ var LoginRegisterComponent = /** @class */ (function () {
         this.authService
             .checkIfRegisterd()
             .then(function (val) {
-            console.log(val);
             _this.login = val ? true : false;
             _this.displayForm = true;
         })
@@ -617,7 +595,6 @@ var LoginRegisterComponent = /** @class */ (function () {
         var _this = this;
         if (this.login) {
             this.authService.login(this.password).then(function (res) {
-                console.log(res);
                 _this.router.navigateByUrl("/home");
             }).catch(function (err) {
                 console.log(err);
@@ -625,7 +602,6 @@ var LoginRegisterComponent = /** @class */ (function () {
         }
         else {
             this.authService.register(this.password).then(function (res) {
-                console.log("Logged in successfully!");
                 _this.login = true;
                 _this.loginRegister();
                 //Todo: Popup
@@ -634,14 +610,11 @@ var LoginRegisterComponent = /** @class */ (function () {
     };
     LoginRegisterComponent.prototype.checkEnter = function (event) {
         if (event.keyCode == 13) {
-            //console.log('enter clicked');
             this.loginRegister();
         }
     };
     LoginRegisterComponent.prototype.togglePasswordVisibility = function () {
-        console.log('toggl');
         this.showPassword = !this.showPassword;
-        console.log(this.showPassword);
     };
     LoginRegisterComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -649,7 +622,9 @@ var LoginRegisterComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/components/login-register/login-register.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/login-register/login-register.component.scss")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */],
+            __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */],
+            __WEBPACK_IMPORTED_MODULE_3__services_crypto_service__["a" /* CryptoService */]])
     ], LoginRegisterComponent);
     return LoginRegisterComponent;
 }());
@@ -831,12 +806,9 @@ var routingComponents = [
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__indexed_db_service__ = __webpack_require__("../../../../../src/app/services/indexed-db.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__crypto_service__ = __webpack_require__("../../../../../src/app/services/crypto.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsrsasign__ = __webpack_require__("../../../../jsrsasign/lib/jsrsasign.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_jsrsasign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_jsrsasign__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__auth0_angular_jwt__ = __webpack_require__("../../../../@auth0/angular-jwt/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs__ = __webpack_require__("../../../../rxjs/Rx.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -886,64 +858,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 
 
 
-
-
-var LOCALSTORAGE_TOKEN_KEY = "auth-token";
 var AuthService = /** @class */ (function () {
     function AuthService(dbService, cryptService, router) {
         this.dbService = dbService;
         this.cryptService = cryptService;
         this.router = router;
         this.isRegistered = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* EventEmitter */]();
-        this.jwtHelper = new __WEBPACK_IMPORTED_MODULE_4__auth0_angular_jwt__["a" /* JwtHelperService */]();
     }
-    AuthService.prototype.getToken = function () {
-        return localStorage.getItem(LOCALSTORAGE_TOKEN_KEY);
-    };
     AuthService.prototype.startLogoutTimer = function () {
         var _this = this;
-        var exp = this.jwtHelper.getTokenExpirationDate(this.getToken()).getTime();
-        var now = new Date().getTime();
-        var logoutTime = exp - now;
+        var logoutTime = 300000; // 5 minutes
         console.log("Time", logoutTime);
-        __WEBPACK_IMPORTED_MODULE_5_rxjs__["Observable"]
+        __WEBPACK_IMPORTED_MODULE_3_rxjs__["Observable"]
             .timer(logoutTime)
             .subscribe(function (val) {
-            console.log('Session expired');
-            _this.removeToken();
+            _this.isLoggedInFlag = false;
             _this.router.navigateByUrl('/login');
         });
     };
-    AuthService.prototype.removeToken = function () {
-        localStorage.removeItem(LOCALSTORAGE_TOKEN_KEY);
-    };
     AuthService.prototype.isLoggedIn = function () {
-        return !this.jwtHelper.isTokenExpired(this.getToken());
+        return this.isLoggedInFlag;
     };
     AuthService.prototype.checkIfRegisterd = function () {
         return this.dbService.getHash();
     };
-    AuthService.prototype.generateJWT = function () {
-        // Header
-        var oHeader = { alg: "HS256", typ: "JWT" };
-        // Payload
-        var oPayload = {};
-        var tNow = __WEBPACK_IMPORTED_MODULE_3_jsrsasign__["jws"].IntDate.get("now");
-        var tEnd = __WEBPACK_IMPORTED_MODULE_3_jsrsasign__["jws"].IntDate.get("now") + 60 * 5;
-        oPayload.iss = window.location.hostname;
-        oPayload.nbf = tNow;
-        oPayload.iat = tNow;
-        oPayload.exp = tEnd;
-        // Sign JWT, password=616161
-        var sHeader = JSON.stringify(oHeader);
-        var sPayload = JSON.stringify(oPayload);
-        var sJWT = __WEBPACK_IMPORTED_MODULE_3_jsrsasign__["jws"].JWS.sign("HS256", sHeader, sPayload, "616161");
-        return sJWT;
-    };
     AuthService.prototype.login = function (password) {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
-            var hash, storedHash, key;
+            var hash, storedHash;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.cryptService.generateHash(password)];
@@ -952,25 +894,18 @@ var AuthService = /** @class */ (function () {
                         return [4 /*yield*/, this.dbService.getHash()];
                     case 2:
                         storedHash = _a.sent();
-                        return [4 /*yield*/, this.dbService.getSecretKey()];
+                        return [4 /*yield*/, this.cryptService.generateKey(password)];
                     case 3:
-                        key = _a.sent();
-                        if (!!key) return [3 /*break*/, 5];
-                        return [4 /*yield*/, this.cryptService.generateKeys()];
-                    case 4:
-                        key = _a.sent();
-                        this.dbService.addSecretKey(key);
-                        _a.label = 5;
-                    case 5: return [2 /*return*/, new Promise(function (resolve, reject) {
-                            if (hash == storedHash) {
-                                var token = _this.generateJWT();
-                                localStorage.setItem("auth-token", token);
-                                resolve(true);
-                            }
-                            else {
-                                reject(false);
-                            }
-                        })];
+                        _a.sent();
+                        return [2 /*return*/, new Promise(function (resolve, reject) {
+                                if (hash == storedHash) {
+                                    _this.isLoggedInFlag = true;
+                                    resolve(true);
+                                }
+                                else {
+                                    reject(false);
+                                }
+                            })];
                 }
             });
         });
@@ -996,7 +931,7 @@ var AuthService = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__indexed_db_service__["a" /* IndexedDbService */],
             __WEBPACK_IMPORTED_MODULE_2__crypto_service__["a" /* CryptoService */],
-            __WEBPACK_IMPORTED_MODULE_6__angular_router__["a" /* Router */]])
+            __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* Router */]])
     ], AuthService);
     return AuthService;
 }());
@@ -1063,16 +998,13 @@ var CryptoService = /** @class */ (function () {
     function CryptoService() {
         this.dec = new __WEBPACK_IMPORTED_MODULE_1_text_encoding__["TextDecoder"]();
     }
-    CryptoService.prototype.encrypt = function (password, keys) {
-        console.log(password, keys);
-        console.log(new __WEBPACK_IMPORTED_MODULE_1_text_encoding__["TextEncoder"]().encode(password));
+    CryptoService.prototype.encrypt = function (password, key) {
         return window.crypto.subtle.encrypt({
-            name: "RSA-OAEP",
-        }, keys.publicKey, //from generateKey or importKey above
-        new __WEBPACK_IMPORTED_MODULE_1_text_encoding__["TextEncoder"]().encode(password) //ArrayBuffer of data you want to encrypt
-        );
+            name: "AES-CBC",
+            iv: new Uint8Array(16)
+        }, key, new __WEBPACK_IMPORTED_MODULE_1_text_encoding__["TextEncoder"]().encode(password));
     };
-    CryptoService.prototype.decrypt = function (data, keys) {
+    CryptoService.prototype.decrypt = function (data, key) {
         var _this = this;
         return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
             var decodedData, _a, _b, err_1;
@@ -1082,30 +1014,22 @@ var CryptoService = /** @class */ (function () {
                         _c.trys.push([0, 2, , 3]);
                         _b = (_a = this.dec).decode;
                         return [4 /*yield*/, window.crypto.subtle.decrypt({
-                                name: "RSA-OAEP",
-                            }, keys.privateKey, //from generateKey or importKey above
-                            data //ArrayBuffer of the data
-                            )];
+                                name: "AES-CBC",
+                                iv: new Uint8Array(16)
+                            }, key, data)];
                     case 1:
                         decodedData = _b.apply(_a, [_c.sent()]);
                         resolve(decodedData);
                         return [3 /*break*/, 3];
                     case 2:
                         err_1 = _c.sent();
+                        console.log(err_1);
                         resolve(err_1);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
             });
         }); });
-    };
-    CryptoService.prototype.generateKeys = function () {
-        return window.crypto.subtle.generateKey({
-            name: "RSA-OAEP",
-            modulusLength: 2048,
-            publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
-            hash: { name: "SHA-256" },
-        }, false, ["encrypt", "decrypt"]);
     };
     CryptoService.prototype.generateHash = function (value) {
         return __awaiter(this, void 0, void 0, function () {
@@ -1119,6 +1043,33 @@ var CryptoService = /** @class */ (function () {
                 }
             });
         });
+    };
+    CryptoService.prototype.generateKey = function (password) {
+        return __awaiter(this, void 0, void 0, function () {
+            var passKey, key, cKey;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        passKey = new __WEBPACK_IMPORTED_MODULE_1_text_encoding__["TextEncoder"]().encode(password);
+                        return [4 /*yield*/, window.crypto.subtle.importKey("raw", passKey, "PBKDF2", false, ["deriveBits", "deriveKey"])];
+                    case 1:
+                        key = _a.sent();
+                        return [4 /*yield*/, window.crypto.subtle.deriveKey({
+                                name: "PBKDF2",
+                                salt: new __WEBPACK_IMPORTED_MODULE_1_text_encoding__["TextEncoder"]().encode("abcdc"),
+                                iterations: 100,
+                                hash: "SHA-256"
+                            }, key, { name: "AES-CBC", length: 256 }, false, ["encrypt", "decrypt"])];
+                    case 2:
+                        cKey = _a.sent();
+                        this.key = cKey;
+                        return [2 /*return*/, cKey];
+                }
+            });
+        });
+    };
+    CryptoService.prototype.getSecretKey = function () {
+        return this.key;
     };
     CryptoService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
@@ -1189,11 +1140,9 @@ var IndexedDbService = /** @class */ (function () {
     function IndexedDbService() {
         this.db = new __WEBPACK_IMPORTED_MODULE_1_zangodb__["Db"]("crypto-pass", 2, {
             passwords: ["service"],
-            key: ["secret"],
             auth: ["hash"]
         });
         this.passwordsCollection = this.db.collection("passwords");
-        this.keyCollection = this.db.collection("key");
         this.authCollection = this.db.collection("auth");
         this.getAll().then();
     }
@@ -1219,25 +1168,6 @@ var IndexedDbService = /** @class */ (function () {
     };
     IndexedDbService.prototype.deletePassword = function (credetials) {
         return this.passwordsCollection.remove(credetials);
-    };
-    /* Key releated code */
-    IndexedDbService.prototype.getSecretKey = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var key;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.keyCollection.findOne({ _id: 1 })];
-                    case 1:
-                        key = _a.sent();
-                        return [2 /*return*/, key ? key["secret"] : null];
-                }
-            });
-        });
-    };
-    IndexedDbService.prototype.addSecretKey = function (secret) {
-        return this.keyCollection.insert({
-            secret: secret
-        });
     };
     IndexedDbService.prototype.getHash = function () {
         return __awaiter(this, void 0, void 0, function () {
