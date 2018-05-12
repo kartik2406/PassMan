@@ -16,6 +16,7 @@ import { AuthGuardService } from "./guards/auth-guard.service";
 import { LoggedinRedirectService } from "./guards/loggedin-redirect.service";
 
 import { ServiceWorkerModule } from "@angular/service-worker";
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent, routingComponents],
@@ -24,7 +25,7 @@ import { ServiceWorkerModule } from "@angular/service-worker";
     FormsModule,
     ReactiveFormsModule,
     RoutingModule,
-    ServiceWorkerModule.register("ngsw-worker.js")
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     IndexedDbService,

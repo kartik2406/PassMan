@@ -19,7 +19,7 @@ export class AddPasswordModalComponent implements OnInit {
   @Output()
   edit: EventEmitter<ServiceDetails[]> = new EventEmitter<ServiceDetails[]>();
   @Input() credential: ServiceDetails;
-  private addPasswordForm: FormGroup;
+  addPasswordForm: FormGroup;
   constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) {}
   showPassword: boolean = false;
   ngOnInit() {
@@ -84,7 +84,7 @@ export class AddPasswordModalComponent implements OnInit {
     this.edit.emit(emitData);
     this.close();
   }
-  togglePasswordVisibility(){
+  togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
 }
