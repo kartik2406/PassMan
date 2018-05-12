@@ -1,0 +1,31 @@
+{
+  "name": "CryptoPass",
+  "short_name": "CPass",
+  "description": "Store your passwords securely",
+  "icons": [
+    {
+      "src": "assets/icon/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "DodgerBlue",
+  "theme_color": "#0077ea"
+}
