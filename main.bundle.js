@@ -91,6 +91,7 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_auth_service__ = __webpack_require__("../../../../../src/app/services/auth.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__guards_auth_guard_service__ = __webpack_require__("../../../../../src/app/guards/auth-guard.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__guards_loggedin_redirect_service__ = __webpack_require__("../../../../../src/app/guards/loggedin-redirect.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_service_worker__ = __webpack_require__("../../../service-worker/fesm5/service-worker.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -107,20 +108,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* NgModule */])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_6__modules_routing_routing_module__["b" /* routingComponents */]
-            ],
+            declarations: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */], __WEBPACK_IMPORTED_MODULE_6__modules_routing_routing_module__["b" /* routingComponents */]],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormsModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* ReactiveFormsModule */],
-                __WEBPACK_IMPORTED_MODULE_6__modules_routing_routing_module__["a" /* RoutingModule */]
+                __WEBPACK_IMPORTED_MODULE_6__modules_routing_routing_module__["a" /* RoutingModule */],
+                __WEBPACK_IMPORTED_MODULE_10__angular_service_worker__["a" /* ServiceWorkerModule */].register("ngsw-worker.js")
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_4__services_indexed_db_service__["a" /* IndexedDbService */],
