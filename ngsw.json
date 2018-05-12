@@ -1,0 +1,93 @@
+{
+  "configVersion": 1,
+  "index": "https://kartik2406.github.io/crypto-pass/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "urls": [
+        "https://kartik2406.github.io/crypto-pass/index.html",
+        "https://kartik2406.github.io/crypto-pass/inline.7dc73dcf4e3987320126.bundle.js",
+        "https://kartik2406.github.io/crypto-pass/main.200a1b4c3e95e10d18d7.bundle.js",
+        "https://kartik2406.github.io/crypto-pass/polyfills.5d1d5b016f19755a7d41.bundle.js",
+        "https://kartik2406.github.io/crypto-pass/styles.5c40b847a12bb1ffa9a0.bundle.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "urls": [
+        "https://kartik2406.github.io/crypto-pass/assets/animations.scss",
+        "https://kartik2406.github.io/crypto-pass/assets/button.scss",
+        "https://kartik2406.github.io/crypto-pass/assets/card.scss",
+        "https://kartik2406.github.io/crypto-pass/assets/colors.scss",
+        "https://kartik2406.github.io/crypto-pass/assets/container.scss",
+        "https://kartik2406.github.io/crypto-pass/assets/fonts.scss",
+        "https://kartik2406.github.io/crypto-pass/assets/form.scss",
+        "https://kartik2406.github.io/crypto-pass/assets/header.scss",
+        "https://kartik2406.github.io/crypto-pass/assets/icon/icon-128x128.png",
+        "https://kartik2406.github.io/crypto-pass/assets/icon/icon-144x144.png",
+        "https://kartik2406.github.io/crypto-pass/assets/icon/icon-152x152.png",
+        "https://kartik2406.github.io/crypto-pass/assets/icon/icon-192x192.png",
+        "https://kartik2406.github.io/crypto-pass/assets/icon/icon-384x384.png",
+        "https://kartik2406.github.io/crypto-pass/assets/icon/icon-512x512.png",
+        "https://kartik2406.github.io/crypto-pass/assets/icon/icon-72x72.png",
+        "https://kartik2406.github.io/crypto-pass/assets/icon/icon-96x96.png",
+        "https://kartik2406.github.io/crypto-pass/assets/icons.scss",
+        "https://kartik2406.github.io/crypto-pass/assets/mobile.scss",
+        "https://kartik2406.github.io/crypto-pass/assets/placeholder.scss",
+        "https://kartik2406.github.io/crypto-pass/assets/variables.scss"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "https://kartik2406.github.io/crypto-pass/assets/animations.scss": "0590dd363d497b2a3de5dd1bc3a94a430628b078",
+    "https://kartik2406.github.io/crypto-pass/assets/button.scss": "2df311cbf170098ffc17c5d85c8a001606ad8456",
+    "https://kartik2406.github.io/crypto-pass/assets/card.scss": "ce9a4d9b00611db700afde6a71f39b2530c76eac",
+    "https://kartik2406.github.io/crypto-pass/assets/colors.scss": "597655d5e42e66eb6b72232287e13bca3b37d4eb",
+    "https://kartik2406.github.io/crypto-pass/assets/container.scss": "fbc6b0e3c7dd5cc636db38f0f2d94ab6bae8cf95",
+    "https://kartik2406.github.io/crypto-pass/assets/fonts.scss": "ea11eb18debe3107b8ec23c393cc509b0f153f28",
+    "https://kartik2406.github.io/crypto-pass/assets/form.scss": "8a5f39f8557e526ac7b631cd9316c3cea426f0ed",
+    "https://kartik2406.github.io/crypto-pass/assets/header.scss": "f47a64b59bd1f203601003d0c3ab3e4c89cf52d4",
+    "https://kartik2406.github.io/crypto-pass/assets/icon/icon-128x128.png": "c378461aa237e7180e9d70068895286bb161d3c8",
+    "https://kartik2406.github.io/crypto-pass/assets/icon/icon-144x144.png": "b8eea12f46908e958353ace3c68634b79cb8d542",
+    "https://kartik2406.github.io/crypto-pass/assets/icon/icon-152x152.png": "48e442fde4320373aa76e89d9d0be341d2b1eb1e",
+    "https://kartik2406.github.io/crypto-pass/assets/icon/icon-192x192.png": "0e3b0ddd67e71f35372063988b13945819c61fd7",
+    "https://kartik2406.github.io/crypto-pass/assets/icon/icon-384x384.png": "2fbe3af77b02fa59d6d8b2b4640c8d2d2f1e90a4",
+    "https://kartik2406.github.io/crypto-pass/assets/icon/icon-512x512.png": "0c875571f14020d8b2f777c61ec99e75645ecf77",
+    "https://kartik2406.github.io/crypto-pass/assets/icon/icon-72x72.png": "752ffcc7d530a3bb3d49b483350da8ff2644cc7a",
+    "https://kartik2406.github.io/crypto-pass/assets/icon/icon-96x96.png": "6b17b1ac2b77140d79995bf437464b782317dc61",
+    "https://kartik2406.github.io/crypto-pass/assets/icons.scss": "b6c217cb421f4cb0a9a1a77fa8fbfeaa8f2d28b0",
+    "https://kartik2406.github.io/crypto-pass/assets/mobile.scss": "cac6f0bdc89d0117e0b5bae3974c4467e8713485",
+    "https://kartik2406.github.io/crypto-pass/assets/placeholder.scss": "aff87e43209771f143179847cc17a36528f37b2e",
+    "https://kartik2406.github.io/crypto-pass/assets/variables.scss": "e6c2491322922b50d034660b6fb60a902407c45f",
+    "https://kartik2406.github.io/crypto-pass/index.html": "7b07136bc0eda145cadd0df50b524f51e1a7ca69",
+    "https://kartik2406.github.io/crypto-pass/inline.7dc73dcf4e3987320126.bundle.js": "2bf0d077152bc604f759dda6f3b7800995af9dc6",
+    "https://kartik2406.github.io/crypto-pass/main.200a1b4c3e95e10d18d7.bundle.js": "97a49644ec3ccc6a3891c4d3f9f4fde9be79ccc6",
+    "https://kartik2406.github.io/crypto-pass/polyfills.5d1d5b016f19755a7d41.bundle.js": "763e872e757547fbad93ddad156df367e0148913",
+    "https://kartik2406.github.io/crypto-pass/styles.5c40b847a12bb1ffa9a0.bundle.css": "72e8484ca87adc10720abadd0968b6e016f00d21"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^\\/]*\\.[^\\/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^\\/]*__[^\\/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^\\/]*__[^\\/]*\\/.*$"
+    }
+  ]
+}
