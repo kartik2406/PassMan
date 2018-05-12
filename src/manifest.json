@@ -2,6 +2,7 @@
   "name": "CryptoPass",
   "short_name": "CPass",
   "description": "Store your passwords securely",
+  "start_url": "/",
   "icons": [
     {
       "src": "assets/icon/icon-128x128.png",
