@@ -2,7 +2,6 @@
   "name": "CryptoPass",
   "short_name": "CPass",
   "description": "Store your passwords securely",
-  "start_url": "/",
   "icons": [
     {
       "src": "assets/icon/icon-128x128.png",
@@ -20,6 +19,7 @@
       "type": "image/png"
     }
   ],
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "DodgerBlue",
   "theme_color": "#0077ea"
